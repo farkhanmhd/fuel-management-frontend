@@ -13,7 +13,9 @@
       "!build",
       "!components/ui",
       "!hooks",
-      "!bun.lock"
+      "!bun.lock",
+      "!lib/get-strict-context.tsx",
+      "!server.ts"
     ]
   },
   "formatter": {
@@ -27,6 +29,9 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "correctness": {
+        "noChildrenProp": "off",
       },
       "complexity": {
         "noStaticOnlyClass": "off"

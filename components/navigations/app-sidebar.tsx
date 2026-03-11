@@ -57,7 +57,7 @@ const data: NavLinkProp[] = [
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="border-b">
+      <SidebarHeader>
         <SidebarLogo />
       </SidebarHeader>
       <SidebarContent>

@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={figtree.variable} lang="en">
+    <html className={`${figtree.variable} `} lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

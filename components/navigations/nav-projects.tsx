@@ -1,12 +1,19 @@
-"use client"
+"use client";
 
+import {
+  ArrowRightIcon,
+  Delete02Icon,
+  FolderIcon,
+  MoreHorizontalCircle01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -15,20 +22,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { MoreHorizontalCircle01Icon, FolderIcon, ArrowRightIcon, Delete02Icon } from "@hugeicons/core-free-icons"
+} from "@/components/ui/sidebar";
 
 export function NavProjects({
   projects,
 }: {
   projects: {
-    name: string
-    url: string
-    icon: React.ReactNode
-  }[]
+    name: string;
+    url: string;
+    icon: React.ReactNode;
+  }[];
 }) {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebar();
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -45,29 +50,44 @@ export function NavProjects({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction
-                  showOnHover
                   className="aria-expanded:bg-muted"
+                  showOnHover
                 >
-                  <HugeiconsIcon icon={MoreHorizontalCircle01Icon} strokeWidth={2} />
+                  <HugeiconsIcon
+                    icon={MoreHorizontalCircle01Icon}
+                    strokeWidth={2}
+                  />
                   <span className="sr-only">More</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
+                align={isMobile ? "end" : "start"}
                 className="w-48 rounded-lg"
                 side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
               >
                 <DropdownMenuItem>
-                  <HugeiconsIcon icon={FolderIcon} strokeWidth={2} className="text-muted-foreground" />
+                  <HugeiconsIcon
+                    className="text-muted-foreground"
+                    icon={FolderIcon}
+                    strokeWidth={2}
+                  />
                   <span>View Project</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <HugeiconsIcon icon={ArrowRightIcon} strokeWidth={2} className="text-muted-foreground" />
+                  <HugeiconsIcon
+                    className="text-muted-foreground"
+                    icon={ArrowRightIcon}
+                    strokeWidth={2}
+                  />
                   <span>Share Project</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <HugeiconsIcon icon={Delete02Icon} strokeWidth={2} className="text-muted-foreground" />
+                  <HugeiconsIcon
+                    className="text-muted-foreground"
+                    icon={Delete02Icon}
+                    strokeWidth={2}
+                  />
                   <span>Delete Project</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -76,11 +96,15 @@ export function NavProjects({
         ))}
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/70">
-            <HugeiconsIcon icon={MoreHorizontalCircle01Icon} strokeWidth={2} className="text-sidebar-foreground/70" />
+            <HugeiconsIcon
+              className="text-sidebar-foreground/70"
+              icon={MoreHorizontalCircle01Icon}
+              strokeWidth={2}
+            />
             <span>More</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }
