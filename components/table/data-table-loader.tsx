@@ -13,6 +13,7 @@ export const DataTableLoader = <TData extends { id: string }>({
 }: DataTableLoaderProps<TData>) => {
   const { setData } = useTableContext();
   useEffect(() => {
+    console.log("[v0] DataTableLoader setData called with:", data);
     setData(data);
   }, [data, setData]);
   return <DataTableBody />;

@@ -85,7 +85,10 @@ export const useTable = <TData extends { id: string }, TValue>({
     },
   });
 
-  console.log({ tableData: data });
+  console.log("[v0] Table data state updated:", {
+    dataLength: data.length,
+    data: data,
+  });
 
   return {
     table,

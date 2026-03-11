@@ -7,11 +7,17 @@ import { useTableContext } from "./context";
 
 export const DataTableBody = () => {
   const { table, columns, selectableRows } = useTableContext();
+  const rows = table.getRowModel().rows;
+  
+  console.log("[v0] DataTableBody rendering with rows:", {
+    rowCount: rows?.length,
+    rows: rows,
+  });
 
   return (
     <TableBody>
-      {table.getRowModel().rows?.length ? (
-        table.getRowModel().rows.map((row) => (
+      {rows?.length ? (
+        rows.map((row) => (
           <TableRow
             className={cn({
               "cursor-pointer": selectableRows,
