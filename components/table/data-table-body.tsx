@@ -6,12 +6,15 @@ import { cn } from "@/lib/utils";
 import { useTableContext } from "./context";
 
 export const DataTableBody = () => {
+  "use no memo";
   const { table, columns, selectableRows } = useTableContext();
+
+  const rows = table.getRowModel().rows;
 
   return (
     <TableBody>
-      {table.getRowModel().rows?.length ? (
-        table.getRowModel().rows.map((row) => (
+      {rows?.length ? (
+        rows.map((row) => (
           <TableRow
             className={cn({
               "cursor-pointer": selectableRows,

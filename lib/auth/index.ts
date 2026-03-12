@@ -1,26 +1,18 @@
-import { cookies } from "next/headers";
+import { unstable_cache as cache } from "next/cache";
 import { authAxios } from "../axios";
 
-export abstract class AuthService {
-  static async verifyToken(token: string): Promise<boolean> {
-    const cookieStore = await cookies();
+export const verifyTokenCached = cache(
+  async (token: string): Promise<boolean> => {
+    console.log("hit");
     try {
       const response = await authAxios.get("/api/v1/verify-token", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (!response.data.valid) {
-        cookieStore.delete("auth-token");
-        return false;
-      }
-
-      return response.data.valid;
-    } catch (error) {
-      console.error(error);
-      cookieStore.delete("auth-token");
+      return response.data.valid === true;
+    } catch {
       return false;
     }
-  }
-}
+  },
+  ["verify-token"],
+  { revalidate: 300, tags: ["verify-token"] }
+);

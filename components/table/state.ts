@@ -1,5 +1,3 @@
-"use client";
-
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -30,15 +28,16 @@ export const useTable = <TData extends { id: string }, TValue>({
   manualPagination = false,
   rowCount,
 }: UseTableProps<TData, TValue>) => {
+  "use no memo";
+  const [internalData, setInternalData] = useState<TData[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [data, setData] = useState<TData[]>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useSearchQueryParams();
   const [rowSelection, setRowSelection] = useState({});
   const [paginationState, setPaginationState] =
     useTablePaginationSearchParams();
   const [manualPaginationState, setManualPaginationState] =
-    useState<PaginationState>({ pageIndex: 0, pageSize: 50 });
+    useState<PaginationState>({ pageIndex: 0, pageSize: 20 });
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -47,7 +46,7 @@ export const useTable = <TData extends { id: string }, TValue>({
 
   const table = useReactTable<TData>({
     columns,
-    data,
+    data: internalData,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
@@ -85,11 +84,9 @@ export const useTable = <TData extends { id: string }, TValue>({
     },
   });
 
-  console.log({ tableData: data });
-
   return {
     table,
-    setData,
+    setInternalData,
     globalFilter,
     setGlobalFilter,
     isManualPagination: manualPagination,

@@ -11,9 +11,14 @@ interface DataTableLoaderProps<TData extends { id: string }> {
 export const DataTableLoader = <TData extends { id: string }>({
   data,
 }: DataTableLoaderProps<TData>) => {
-  const { setData } = useTableContext();
+  "use no memo";
+  const { setInternalData } = useTableContext();
+
   useEffect(() => {
-    setData(data);
-  }, [data, setData]);
+    if (data) {
+      setInternalData(data);
+    }
+  }, [data, setInternalData]);
+
   return <DataTableBody />;
 };

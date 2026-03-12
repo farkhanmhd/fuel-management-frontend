@@ -7,7 +7,7 @@ import {
 
 const paginationParsers = {
   pageIndex: parseAsIndex.withDefault(0),
-  pageSize: parseAsInteger.withDefault(50),
+  pageSize: parseAsInteger.withDefault(20),
 };
 
 const paginationUrlKeys = {
@@ -26,5 +26,9 @@ export function useSearchQueryParams() {
     defaultValue: '',
     shallow: false,
     history: 'replace',
+    limitUrlUpdates: {
+      method: 'debounce',
+      timeMs: 250
+    }
   });
 }

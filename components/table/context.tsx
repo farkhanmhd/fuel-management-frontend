@@ -9,10 +9,10 @@ interface TableContextType<T extends { id: string }> {
   globalFilter: string;
   isManualPagination: boolean;
   selectableRows?: boolean;
-  setData: (data: T[]) => void;
   setGlobalFilter: (
     value: string | ((old: string) => string | null) | null
   ) => Promise<URLSearchParams>;
+  setInternalData: (data: T[]) => void;
   table: Table<T>;
 }
 
@@ -33,12 +33,18 @@ export function TableProvider<T extends { id: string }>({
   manualPagination = false,
   selectableRows = false,
 }: TableProviderProps<T>) {
-  const { table, globalFilter, setGlobalFilter, isManualPagination, setData } =
-    useTable({
-      columns,
-      manualPagination,
-      rowCount,
-    });
+  "use no memo";
+  const {
+    table,
+    globalFilter,
+    setGlobalFilter,
+    isManualPagination,
+    setInternalData,
+  } = useTable({
+    columns,
+    manualPagination,
+    rowCount,
+  });
 
   const value: TableContextType<T> = {
     table,
@@ -47,7 +53,7 @@ export function TableProvider<T extends { id: string }>({
     columns,
     isManualPagination,
     selectableRows,
-    setData,
+    setInternalData,
   };
 
   return (
@@ -56,6 +62,7 @@ export function TableProvider<T extends { id: string }>({
 }
 
 export function useTableContext<T extends { id: string }>() {
+  "use no memo";
   const context = useContext(TableContext);
   if (!context) {
     throw new Error("useTableContext must be used within a TableProvider");

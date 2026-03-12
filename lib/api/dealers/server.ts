@@ -1,4 +1,3 @@
-import { sleep } from "bun";
 import { cacheLife, cacheTag } from "next/cache";
 import { serverApi, withAuth } from "@/lib/axios/server";
 import type { elysia } from "@/lib/elysia";
@@ -12,7 +11,6 @@ const fetchDealers = async (token: string): Promise<DealerList[]> => {
   cacheTag("dealers");
   cacheLife("days");
 
-  await sleep(3000);
   const response = await serverApi.get("/api/dealers", {
     headers: { Authorization: `Bearer ${token}` },
   });

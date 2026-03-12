@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Elysia } from "elysia";
 declare const app: Elysia<"", {
     decorator: {};

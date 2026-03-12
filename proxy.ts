@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
-import { AuthService } from "./lib/auth";
+import { verifyTokenCached } from "./lib/auth";
 
 // Consider using an array to future-proof for /signup, /reset-password, etc.
 const publicRoutes = ["/login"];
@@ -10,7 +10,7 @@ export default async function proxy(req: NextRequest) {
   const isPublicRoute = publicRoutes.includes(path);
 
   const cookieStore = await cookies();
-  const token = cookieStore.get("auth-token")?.value;
+  const token = cookieStore.get("auth-token")?.value || "";
 
   // 1. If there's no token AND they aren't on a public route, kick them to login
   if (!(token || isPublicRoute)) {
@@ -20,7 +20,7 @@ export default async function proxy(req: NextRequest) {
   // 2. If there is a token, verify its integrity
   let isValidToken = false;
   if (token) {
-    isValidToken = await AuthService.verifyToken(token);
+    isValidToken = await verifyTokenCached(token);
   }
 
   // 3. If they have an invalid token and are trying to access a protected route

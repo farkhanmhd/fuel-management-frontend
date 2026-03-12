@@ -38,8 +38,8 @@ const data: NavLinkProp[] = [
     icon: <HugeiconsIcon icon={Building} strokeWidth={2} />,
   },
   {
-    title: "Kendaraan",
-    url: "/vehicles",
+    title: "Aset",
+    url: "/assets",
     icon: <HugeiconsIcon icon={Car} strokeWidth={2} />,
   },
   {
@@ -54,9 +54,9 @@ const data: NavLinkProp[] = [
   },
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarLogo />
       </SidebarHeader>

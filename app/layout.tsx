@@ -27,9 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={`${figtree.variable} `} lang="en">
+    <html className={figtree.variable} lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-hidden antialiased`}
       >
         <Providers>
           {children}

@@ -5,6 +5,7 @@ import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTableContext } from "./context";
 
 export const DataTableHeader = () => {
+  "use no memo";
   const { table } = useTableContext();
   return (
     <TableHeader className="sticky top-0 z-49 bg-background">

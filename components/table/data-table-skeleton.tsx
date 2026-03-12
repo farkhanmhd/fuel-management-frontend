@@ -1,31 +1,26 @@
 "use client";
 
-import { uuid } from "@tanstack/react-form";
 import type { ColumnDef } from "@tanstack/react-table";
+import { Skeleton } from "@/components/ui/skeleton";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Skeleton } from "../ui/skeleton";
 
-interface DataTableSkeletonProps<
-  TData extends { id: string },
-  TValue = unknown,
-> {
+interface DataTableSkeletonProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   rows: number;
 }
 
-export const DataTableBodySkeleton = <
-  TData extends { id: string },
-  TValue = unknown,
->({
+export const DataTableSkeleton = <TData, TValue>({
   rows,
   columns,
 }: DataTableSkeletonProps<TData, TValue>) => {
+  "use no memo";
+
   return (
     <TableBody>
-      {Array.from({ length: rows }).map(() => (
-        <TableRow key={uuid()}>
-          {columns.map(() => (
-            <TableCell className="px-4" key={uuid()}>
+      {Array.from({ length: rows }).map((_, rowIndex) => (
+        <TableRow key={`skeleton-row-${rowIndex}`}>
+          {columns.map((_, colIndex) => (
+            <TableCell className="px-4" key={`skeleton-col-${colIndex}`}>
               <Skeleton className="h-8 w-full" />
             </TableCell>
           ))}

@@ -6,9 +6,11 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LogoutDialog } from "../auth/logout-dialog";
+import { ThemeToggle } from "../theme/theme-toggle";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { useSidebar } from "../ui/sidebar";
+import { Client } from "../utils/client";
 
 export const SiteHeader = () => {
   const { toggleSidebar, open } = useSidebar();
@@ -33,7 +35,12 @@ export const SiteHeader = () => {
         </Button>
         <Separator className="mr-2" orientation="vertical" />
       </div>
-      <LogoutDialog />
+      <div className="flex items-center gap-2">
+        <Client>
+          <ThemeToggle />
+        </Client>
+        <LogoutDialog />
+      </div>
     </header>
   );
 };
