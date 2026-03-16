@@ -6,7 +6,6 @@ import {
   ChartCandleIcon,
   FuelStationIcon,
   StreeringWheelIcon,
-  Users,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -29,7 +28,7 @@ const data: NavLinkProp[] = [
   },
   {
     title: "Transaksi BBM",
-    url: "/transaction",
+    url: "/transactions",
     icon: <HugeiconsIcon icon={FuelStationIcon} strokeWidth={2} />,
   },
   {
@@ -47,16 +46,16 @@ const data: NavLinkProp[] = [
     url: "/drivers",
     icon: <HugeiconsIcon icon={StreeringWheelIcon} strokeWidth={2} />,
   },
-  {
-    title: "User",
-    url: "/users",
-    icon: <HugeiconsIcon icon={Users} strokeWidth={2} />,
-  },
+  // {
+  //   title: "User",
+  //   url: "/users",
+  //   icon: <HugeiconsIcon icon={Users} strokeWidth={2} />,
+  // },
 ];
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar className="z-100" collapsible="icon">
       <SidebarHeader>
         <SidebarLogo />
       </SidebarHeader>

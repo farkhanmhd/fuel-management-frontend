@@ -12,6 +12,7 @@
       "!dist",
       "!build",
       "!components/ui",
+      "!components/animate-ui",
       "!hooks",
       "!bun.lock",
       "!lib/get-strict-context.tsx",

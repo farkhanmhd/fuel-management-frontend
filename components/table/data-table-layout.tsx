@@ -3,21 +3,34 @@
 import { Table } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { useSidebar } from "../ui/sidebar";
 import { DataTableHeader } from "./data-table-header";
 
 interface DataTableLayoutProps {
   children: React.ReactNode;
   className?: string;
+  fullWidth?: boolean | undefined;
 }
 
 export const DataTableLayout = ({
   children,
+  fullWidth = undefined,
   className,
 }: DataTableLayoutProps) => {
   "use no memo";
+  const { open } = useSidebar();
   return (
-    <ScrollArea className="max-w-[calc(100svw-48px)] overflow-hidden rounded-xl border">
-      <Table className={cn(className)}>
+    <ScrollArea
+      className={cn(
+        "max-w-[calc(100svw-48px)] overflow-hidden rounded-xl border",
+        {
+          "w-[calc(100svw-336px)]": fullWidth && open,
+          "w-[calc(100svw-112px)]": fullWidth && !open,
+        },
+        className
+      )}
+    >
+      <Table>
         <DataTableHeader />
         {children}
       </Table>

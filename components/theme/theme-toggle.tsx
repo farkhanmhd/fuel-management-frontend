@@ -13,6 +13,7 @@ import {
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+
   const selectedIcon = {
     light: Sun03Icon,
     dark: Moon,

@@ -3,7 +3,6 @@ import { authAxios } from "../axios";
 
 export const verifyTokenCached = cache(
   async (token: string): Promise<boolean> => {
-    console.log("hit");
     try {
       const response = await authAxios.get("/api/v1/verify-token", {
         headers: { Authorization: `Bearer ${token}` },
