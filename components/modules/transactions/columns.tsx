@@ -17,6 +17,7 @@ export interface Transaction {
   kiloMeterPerLitre: number;
   lastKilometer: number;
   litresPurchased: number;
+  modelName: string;
   refillKilometer: number;
   transactionTotal: number;
 }
@@ -57,6 +58,12 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     accessorKey: "assetPlate",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Plat Kendaraan" />
+    ),
+  },
+  {
+    accessorKey: "modelName",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Model Kendaraan" />
     ),
   },
   {

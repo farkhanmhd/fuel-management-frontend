@@ -59,6 +59,10 @@ const AssetCard = async ({ params }: Props) => {
             {detail.asset.status}
           </span>
         </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-muted-foreground text-sm">Keterangan Status</p>
+          <span className="font-medium">MDS Medan</span>
+        </div>
       </CardContent>
     </Card>
   );

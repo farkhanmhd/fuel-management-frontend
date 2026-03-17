@@ -24,8 +24,8 @@ export const DataTableLayout = ({
       className={cn(
         "max-w-[calc(100svw-48px)] overflow-hidden rounded-xl border",
         {
-          "w-[calc(100svw-336px)]": fullWidth && open,
-          "w-[calc(100svw-112px)]": fullWidth && !open,
+          "md:w-[calc(100svw-336px)]": fullWidth && open,
+          "md:w-[calc(100svw-112px)]": fullWidth && !open,
         },
         className
       )}

@@ -55,7 +55,7 @@ const data: NavLinkProp[] = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="z-100" collapsible="icon">
+    <Sidebar className="z-50" collapsible="icon">
       <SidebarHeader>
         <SidebarLogo />
       </SidebarHeader>
