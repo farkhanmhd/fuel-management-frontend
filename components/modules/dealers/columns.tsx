@@ -7,7 +7,7 @@ import type { Route } from "next";
 import { Link } from "next-view-transitions";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { buttonVariants } from "@/components/ui/button";
-import type { DealerList } from "@/lib/api/dealers/server";
+import type { DealerList } from "@/lib/api/dealers";
 import { cn } from "@/lib/utils";
 
 export const dealerColumns: ColumnDef<DealerList>[] = [

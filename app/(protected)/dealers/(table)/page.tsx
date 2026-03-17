@@ -1,8 +1,8 @@
 import { DataTableLoader } from "@/components/table/data-table-loader";
-import { getDealers } from "@/lib/api/dealers/server";
+import { DealersApi } from "@/lib/api/dealers";
 
 const DealersPage = async () => {
-  const dealers = await getDealers();
+  const dealers = await DealersApi.getDealers();
   return <DataTableLoader data={dealers} />;
 };
 

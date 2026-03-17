@@ -1,9 +1,8 @@
 "use client";
 
 import type { Route } from "next";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Link as TransitionLink } from "next-view-transitions";
+import { Link, Link as TransitionLink } from "next-view-transitions";
 import {
   SidebarGroup,
   SidebarMenu,

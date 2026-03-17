@@ -81,6 +81,7 @@ export function LoginForm({
                   <Input
                     aria-invalid={isInvalid}
                     autoComplete="off"
+                    autoFocus
                     disabled={isSubmitting}
                     id={field.name}
                     name={field.name}

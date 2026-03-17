@@ -6,6 +6,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import { Link } from "next-view-transitions";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
+import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -55,20 +56,21 @@ export const assetColumns: ColumnDef<Asset>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const statusColors: Record<string, string> = {
-        MDS: "bg-blue-100 text-blue-800",
-        NEQ: "bg-green-100 text-green-800",
-        SEWA: "bg-yellow-100 text-yellow-800",
+      const statusColors: Record<
+        string,
+        React.ComponentProps<typeof Badge>["variant"]
+      > = {
+        MDS: "default",
+        NEQ: "secondary",
+        SEWA: "outline",
       };
       return (
-        <span
-          className={cn(
-            "ium inline-flex items-center rounded-full px-2.5 py-0.5 text-xs",
-            statusColors[row.original.status]
-          )}
+        <Badge
+          className="font-bold"
+          variant={statusColors[row.original.status]}
         >
           {row.original.status}
-        </span>
+        </Badge>
       );
     },
   },

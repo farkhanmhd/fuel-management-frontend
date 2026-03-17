@@ -2,7 +2,7 @@
 
 import { User } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import {
   SidebarMenu,
   SidebarMenuButton,

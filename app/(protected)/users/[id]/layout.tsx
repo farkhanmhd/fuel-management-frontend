@@ -4,26 +4,18 @@ import { Link } from "next-view-transitions";
 import { Suspense } from "react";
 
 interface Props {
-  asset: React.ReactNode;
   children: React.ReactNode;
-  driver: React.ReactNode;
-  evidence: React.ReactNode;
-  transactionSummary: React.ReactNode;
+  user: React.ReactNode;
 }
 
-const TransactionDetailLayout = ({
-  evidence,
-  transactionSummary,
-  driver,
-  asset,
-}: Props) => {
+const UserDetailLayout = ({ user, children }: Props) => {
   return (
     <Suspense>
       <div className="flex flex-col gap-4 px-1">
         <div className="flex items-center gap-2">
           <Link
             className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
-            href="/transactions"
+            href="/users"
           >
             <HugeiconsIcon
               className="size-4"
@@ -33,17 +25,11 @@ const TransactionDetailLayout = ({
             <span>Kembali</span>
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
-          <div className="flex flex-col gap-4 lg:col-span-3">{evidence}</div>
-          <div className="flex flex-col gap-4 lg:col-span-2">
-            {transactionSummary}
-            {driver}
-            {asset}
-          </div>
-        </div>
+        <div className="flex flex-col gap-4">{user}</div>
+        {children}
       </div>
     </Suspense>
   );
 };
 
-export default TransactionDetailLayout;
+export default UserDetailLayout;

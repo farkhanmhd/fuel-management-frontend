@@ -1,19 +1,27 @@
-// lib/axios.ts
 import axios from "axios";
-import { getAccessToken } from "./auth/utils";
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
+});
+
+export const clientApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
+});
+
+clientApi.interceptors.request.use(async (config) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_FRONTEND_URL}/api/auth/token`
+  );
+
+  if (res.ok) {
+    const { token } = await res.json();
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });
 
 export const authAxios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL,
   headers: { "Content-Type": "application/json" },
 });
-
-export const withAuth = async <T>(
-  fn: (token: string) => Promise<T>
-): Promise<T> => {
-  const token = await getAccessToken();
-  return fn(token);
-};

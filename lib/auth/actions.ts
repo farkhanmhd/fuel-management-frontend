@@ -3,28 +3,22 @@
 import { cookies } from "next/headers";
 import type { LoginSchema } from "@/components/auth/login-form";
 import { authAxios } from "@/lib/axios";
+import type { AuthApiResponse } from "./utils";
 
-interface LoginResponse {
-  data: {
-    accessToken: string;
-    token_type: string;
-    user: {
-      uuid: string;
-      username: string;
-      name: string;
-    };
-  };
-  meta: {
-    code: number;
-    status: string;
-    message: string;
+interface LoginData {
+  accessToken: string;
+  token_type: string;
+  user: {
+    uuid: string;
+    username: string;
+    name: string;
   };
 }
 
 export async function loginAction(
   credentials: LoginSchema
-): Promise<LoginResponse> {
-  const response = await authAxios.post<LoginResponse>(
+): Promise<AuthApiResponse<LoginData>> {
+  const response = await authAxios.post<AuthApiResponse<LoginData>>(
     "/api/v1/login",
     credentials
   );

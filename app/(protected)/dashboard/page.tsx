@@ -196,7 +196,7 @@ const DashboardPage = () => {
             <CardTitle>Konsumsi BBM Bulanan</CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer className="h-[250px] w-full" config={chartConfig}>
+            <ChartContainer className="h-62.5 w-full" config={chartConfig}>
               <AreaChart data={monthlyData}>
                 <defs>
                   <linearGradient id="fuelGradient" x1="0" x2="0" y1="0" y2="1">
@@ -236,7 +236,7 @@ const DashboardPage = () => {
                 <Area
                   dataKey="fuel"
                   fill="url(#fuelGradient)"
-                  stroke="var(--chart-1)"
+                  stroke="var(--chart-3)"
                   strokeWidth={2}
                   type="monotone"
                 />
@@ -250,7 +250,7 @@ const DashboardPage = () => {
             <CardTitle>Pengeluaran Bulanan</CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer className="h-[250px] w-full" config={chartConfig}>
+            <ChartContainer className="h-62.5 w-full" config={chartConfig}>
               <BarChart data={monthlyData}>
                 <XAxis
                   axisLine={false}
@@ -275,7 +275,7 @@ const DashboardPage = () => {
                 />
                 <Bar
                   dataKey="spending"
-                  fill="var(--chart-2)"
+                  fill="var(--chart-3)"
                   radius={[4, 4, 0, 0]}
                 />
               </BarChart>
