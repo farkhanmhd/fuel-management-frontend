@@ -1,7 +1,10 @@
 "use client";
 
+import { Orbit01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useForm, useStore } from "@tanstack/react-form";
-import { useTransitionRouter } from "next-view-transitions";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -31,7 +34,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { push } = useTransitionRouter();
+  const { push } = useRouter();
   const form = useForm({
     validators: {
       onSubmit: loginSchema,
@@ -57,7 +60,33 @@ export function LoginForm({
   const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-8", className)} {...props}>
+      {/* Logo / Brand mark */}
+      <div className="flex flex-col items-center gap-3">
+        <Image
+          alt="Alfa Scorpii"
+          className="rounded-2xl bg-white object-contain p-2 shadow-lg"
+          height={56}
+          priority
+          src="/alfa-scorpii.png"
+          width={56}
+        />
+        <div className="text-center">
+          <p className="font-semibold text-[11px] text-muted-foreground uppercase tracking-[0.2em]">
+            Alfa Scorpii
+          </p>
+          <h1 className="mt-0.5 font-semibold text-foreground text-xl leading-tight tracking-tight">
+            Fuel Management
+            <br />
+            Information System
+          </h1>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="h-px w-full bg-border" />
+
+      {/* Form */}
       <form
         id="login-form"
         onSubmit={(e) => {
@@ -65,32 +94,41 @@ export function LoginForm({
           form.handleSubmit();
         }}
       >
-        <FieldGroup>
-          <div className="flex flex-col items-center gap-2 text-center">
-            <h1 className="font-medium text-xl">
-              Welcome to Alfa Scorpii <br /> Fuel Management Information System
-            </h1>
-          </div>
+        <FieldGroup className="gap-5">
           <form.Field
             children={(field) => {
               const isInvalid =
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
-                <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Username</FieldLabel>
+                <Field
+                  className="flex flex-col gap-1.5"
+                  data-invalid={isInvalid}
+                >
+                  <FieldLabel
+                    className="font-semibold text-muted-foreground text-xs uppercase tracking-widest"
+                    htmlFor={field.name}
+                  >
+                    Username
+                  </FieldLabel>
                   <Input
                     aria-invalid={isInvalid}
                     autoComplete="off"
                     autoFocus
+                    className="h-11 rounded-xl border-border bg-muted/40 px-4 text-sm transition-all placeholder:text-muted-foreground/50 focus-visible:ring-1 focus-visible:ring-foreground/30"
                     disabled={isSubmitting}
                     id={field.name}
                     name={field.name}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Username"
+                    placeholder="Enter your username"
                     value={field.state.value}
                   />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  {isInvalid && (
+                    <FieldError
+                      className="text-destructive text-xs"
+                      errors={field.state.meta.errors}
+                    />
+                  )}
                 </Field>
               );
             }}
@@ -102,34 +140,66 @@ export function LoginForm({
               const isInvalid =
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
-                <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <Field
+                  className="flex flex-col gap-1.5"
+                  data-invalid={isInvalid}
+                >
+                  <FieldLabel
+                    className="font-semibold text-muted-foreground text-xs uppercase tracking-widest"
+                    htmlFor={field.name}
+                  >
+                    Password
+                  </FieldLabel>
                   <Input
                     aria-invalid={isInvalid}
                     autoComplete="off"
+                    className="h-11 rounded-xl border-border bg-muted/40 px-4 text-sm transition-all placeholder:text-muted-foreground/50 focus-visible:ring-1 focus-visible:ring-foreground/30"
                     disabled={isSubmitting}
                     id={field.name}
                     name={field.name}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Password"
+                    placeholder="Enter your password"
                     type="password"
                     value={field.state.value}
                   />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  {isInvalid && (
+                    <FieldError
+                      className="text-destructive text-xs"
+                      errors={field.state.meta.errors}
+                    />
+                  )}
                 </Field>
               );
             }}
             name="password"
           />
 
-          <Field>
-            <Button disabled={isSubmitting} size="lg" type="submit">
-              Login
+          <Field className="mt-2">
+            <Button
+              className="h-11 w-full rounded-xl font-semibold text-sm tracking-wide transition-all duration-200"
+              disabled={isSubmitting}
+              size="lg"
+              type="submit"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center gap-2">
+                  <HugeiconsIcon className="animate-spin" icon={Orbit01Icon} />
+                  Signing in…
+                </span>
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </Field>
         </FieldGroup>
       </form>
+
+      {/* Footer note */}
+      <p className="text-center text-[11px] text-muted-foreground/60 leading-relaxed">
+        Authorized personnel only. <br />
+        Unauthorized access is strictly prohibited.
+      </p>
     </div>
   );
 }

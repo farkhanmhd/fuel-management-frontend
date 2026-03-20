@@ -1,4 +1,5 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheTag } from "next/cache";
+import { cacheLife } from "next/dist/server/use-cache/cache-life";
 import type { AuthApiResponse } from "../auth/utils";
 import { withAuth } from "../auth/utils";
 import { authAxios } from "../axios";
@@ -20,7 +21,11 @@ export interface UserData extends UserDataResponse {
 export const fetchCachedUsers = async (token: string) => {
   "use cache";
   cacheTag("users");
-  cacheLife("days");
+  cacheLife({
+    stale: 0,
+    revalidate: 60 * 15,
+    expire: 60 * 15,
+  });
 
   const response = await authAxios.get<AuthApiResponse<UserDataResponse[]>>(
     "/api/v1/userlist",

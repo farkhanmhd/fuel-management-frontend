@@ -7,7 +7,7 @@ import {
   FuelStationIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { Area, AreaChart, Bar, BarChart, XAxis, YAxis } from "recharts";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -201,14 +201,9 @@ const DashboardPage = () => {
                 <defs>
                   <linearGradient id="fuelGradient" x1="0" x2="0" y1="0" y2="1">
                     <stop
-                      offset="5%"
-                      stopColor="var(--chart-1)"
-                      stopOpacity={0.3}
-                    />
-                    <stop
-                      offset="95%"
-                      stopColor="var(--chart-1)"
-                      stopOpacity={0}
+                      offset="100%"
+                      stopColor="var(--chart-4)"
+                      stopOpacity={0.1}
                     />
                   </linearGradient>
                 </defs>
@@ -295,7 +290,7 @@ const DashboardPage = () => {
           </Link>
         </CardHeader>
         <CardContent>
-          <div className="relative w-full overflow-auto">
+          <div className="relative w-full overflow-auto rounded-lg border">
             <table className="w-full caption-bottom text-sm">
               <thead className="[&_tr]:border-b">
                 <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">

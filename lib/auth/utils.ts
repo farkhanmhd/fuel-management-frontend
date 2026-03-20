@@ -17,12 +17,10 @@ export const getAccessToken = cache(async () => {
   if (!token) {
     redirect("/login");
   }
+
   return token;
 });
 
 export const withAuth = async <T>(
   fn: (token: string) => Promise<T>
-): Promise<T> => {
-  const token = await getAccessToken();
-  return fn(token);
-};
+): Promise<T> => fn(await getAccessToken());

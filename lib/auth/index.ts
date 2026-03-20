@@ -1,7 +1,7 @@
 import { unstable_cache as cache } from "next/cache";
 import { authAxios } from "../axios";
 
-export const verifyTokenCached = cache(
+export const verifyToken = cache(
   async (token: string): Promise<boolean> => {
     try {
       const response = await authAxios.get("/api/v1/verify-token", {
@@ -12,6 +12,9 @@ export const verifyTokenCached = cache(
       return false;
     }
   },
-  ["verify-token"],
-  { revalidate: 300, tags: ["verify-token"] }
+  ["token-status"],
+  {
+    tags: ["token-status"],
+    revalidate: 300,
+  }
 );

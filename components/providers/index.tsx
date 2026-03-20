@@ -1,4 +1,3 @@
-import { ViewTransitions } from "next-view-transitions";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 import { TooltipProvider } from "../ui/tooltip";
@@ -10,11 +9,9 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
     <NuqsAdapter>
       <TanstackProvider>
         <Suspense>
-          <ViewTransitions>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <TooltipProvider>{children}</TooltipProvider>
-            </ThemeProvider>
-          </ViewTransitions>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <TooltipProvider>{children}</TooltipProvider>
+          </ThemeProvider>
         </Suspense>
       </TanstackProvider>
     </NuqsAdapter>

@@ -1,29 +1,32 @@
-import { Triangle } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Link } from "next-view-transitions";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
+import { cn } from "@/lib/utils";
+import { SidebarMenu, SidebarMenuItem, useSidebar } from "../ui/sidebar";
+import { SidebarTrigger } from "./sidebar-trigger";
 
 export const SidebarLogo = () => {
+  const { open, openMobile } = useSidebar();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <SidebarMenuButton
-          asChild
-          className="group-data-[collapsible=icon]:size-12! group-data-[collapsible=icon]:p-2! [&_svg]:size-5"
-          size="lg"
-        >
-          <Link href="#">
-            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-              <HugeiconsIcon icon={Triangle} strokeWidth={2} />
-            </div>
-            <div className="grid flex-1 text-left text-sm">
-              <span className="truncate font-medium">Alfa Scorpii</span>
-              <span className="truncate text-xs">
+        <div className="flex h-12 w-full items-center justify-between">
+          {(open || openMobile) && (
+            <div className="px-3">
+              <p className="truncate font-semibold text-lg text-primary">
+                Alfa Scorpii
+              </p>
+              <p className="truncate text-xs">
                 Fuel Management Information System
-              </span>
+              </p>
             </div>
-          </Link>
-        </SidebarMenuButton>
+          )}
+          <div
+            className={cn("flex w-full items-center", {
+              "justify-end": open || openMobile,
+              "md:justify-center": !open,
+            })}
+          >
+            <SidebarTrigger />
+          </div>
+        </div>
       </SidebarMenuItem>
     </SidebarMenu>
   );

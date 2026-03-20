@@ -1,12 +1,17 @@
 import { ArrowLeft } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Link } from "next-view-transitions";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 
 interface Props {
   children: React.ReactNode;
   driver: React.ReactNode;
 }
+
+export const metadata: Metadata = {
+  title: "Informasi Driver",
+};
 
 const DriverDetailLayout = ({ driver, children }: Props) => {
   return (

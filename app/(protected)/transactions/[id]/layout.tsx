@@ -1,6 +1,7 @@
 import { ArrowLeft } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Link } from "next-view-transitions";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 
 interface Props {
@@ -10,6 +11,10 @@ interface Props {
   evidence: React.ReactNode;
   transactionSummary: React.ReactNode;
 }
+
+export const metadata: Metadata = {
+  title: "Detail Transaksi",
+};
 
 const TransactionDetailLayout = ({
   evidence,

@@ -2,7 +2,7 @@
 
 import { LogoutSquare01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useTransitionRouter } from "next-view-transitions";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import {
   AlertDialog,
@@ -20,7 +20,7 @@ import { logoutAction } from "@/lib/auth/actions";
 export function LogoutDialog() {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
-  const { push } = useTransitionRouter();
+  const { push } = useRouter();
 
   const submitAction = () => {
     startTransition(async () => {

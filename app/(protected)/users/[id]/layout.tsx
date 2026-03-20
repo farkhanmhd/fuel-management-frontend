@@ -1,14 +1,13 @@
 import { ArrowLeft } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { Suspense } from "react";
 
 interface Props {
   children: React.ReactNode;
-  user: React.ReactNode;
 }
 
-const UserDetailLayout = ({ user, children }: Props) => {
+const UserDetailLayout = ({ children }: Props) => {
   return (
     <Suspense>
       <div className="flex flex-col gap-4 px-1">
@@ -25,8 +24,7 @@ const UserDetailLayout = ({ user, children }: Props) => {
             <span>Kembali</span>
           </Link>
         </div>
-        <div className="flex flex-col gap-4">{user}</div>
-        {children}
+        <div className="flex flex-col gap-4">{children}</div>
       </div>
     </Suspense>
   );

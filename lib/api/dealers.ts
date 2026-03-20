@@ -1,4 +1,3 @@
-import { cacheLife, cacheTag } from "next/cache";
 import type { elysia } from "@/lib/elysia";
 import { withAuth } from "../auth/utils";
 import { api } from "../axios";
@@ -8,10 +7,6 @@ export type DealerList = NonNullable<
 >["data"]["dealers"][number];
 
 const fetchDealers = async (token: string): Promise<DealerList[]> => {
-  "use cache";
-  cacheTag("dealers");
-  cacheLife("days");
-
   const response = await api.get("/api/dealers", {
     headers: { Authorization: `Bearer ${token}` },
   });

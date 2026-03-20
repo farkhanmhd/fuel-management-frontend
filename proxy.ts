@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
-import { verifyTokenCached } from "./lib/auth";
+import { verifyToken } from "./lib/auth";
 
 // Consider using an array to future-proof for /signup, /reset-password, etc.
 const publicRoutes = ["/login"];
@@ -20,7 +20,7 @@ export default async function proxy(req: NextRequest) {
   // 2. If there is a token, verify its integrity
   let isValidToken = false;
   if (token) {
-    isValidToken = await verifyTokenCached(token);
+    isValidToken = await verifyToken(token);
   }
 
   // 3. If they have an invalid token and are trying to access a protected route
@@ -41,6 +41,6 @@ export default async function proxy(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|images|favicon.ico|robots.txt|sitemap.xml).*)",
+    "/((?!api|_next/static|_next/image|images|favicon.ico|robots.txt|sitemap.xml|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.svg|.*\\.webp|.*\\.ico).*)",
   ],
 };

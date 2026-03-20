@@ -28,7 +28,7 @@ export function useSearchQueryParams() {
     history: 'replace',
     limitUrlUpdates: {
       method: 'debounce',
-      timeMs: 250
+      timeMs: 400
     }
   });
 }

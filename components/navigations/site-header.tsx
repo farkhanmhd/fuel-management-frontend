@@ -1,39 +1,39 @@
 "use client";
 
-import {
-  SidebarLeft01FreeIcons,
-  SidebarRight01FreeIcons,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { useSyncExternalStore } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { LogoutDialog } from "../auth/logout-dialog";
 import { ThemeToggle } from "../theme/theme-toggle";
-import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-import { useSidebar } from "../ui/sidebar";
 import { Client } from "../utils/client";
+import { SidebarTrigger } from "./sidebar-trigger";
+
+const subscribeToTitle = (callback: () => void) => {
+  const observer = new MutationObserver(callback);
+  observer.observe(document.head, { childList: true, subtree: true });
+  return () => observer.disconnect();
+};
+
+const getTitle = () => document.title;
+const getServerSnapshot = () => "";
+
+const useDocumentTitle = () =>
+  useSyncExternalStore(subscribeToTitle, getTitle, getServerSnapshot);
 
 export const SiteHeader = () => {
-  const { toggleSidebar, open } = useSidebar();
+  const isMobile = useIsMobile();
+  const title = useDocumentTitle();
 
   return (
-    <header className="flex h-16.25 shrink-0 items-center justify-between gap-2 border-b px-4 transition-[width,height] ease-linear">
+    <header className="flex h-16.25 shrink-0 items-center justify-between gap-2 px-4 transition-[width,height] ease-linear">
       <div className="flex items-center gap-2">
-        <Button onClick={toggleSidebar} size="icon" variant="ghost">
-          {open ? (
-            <HugeiconsIcon
-              className="size-5"
-              icon={SidebarLeft01FreeIcons}
-              strokeWidth={2}
-            />
-          ) : (
-            <HugeiconsIcon
-              className="size-5"
-              icon={SidebarRight01FreeIcons}
-              strokeWidth={2}
-            />
-          )}
-        </Button>
-        <Separator className="mr-2" orientation="vertical" />
+        {isMobile && (
+          <>
+            <SidebarTrigger />
+            <Separator className="mr-2" orientation="vertical" />
+          </>
+        )}
+        <span className="font-medium text-lg">{title}</span>
       </div>
       <div className="flex items-center gap-2">
         <Client>

@@ -1,8 +1,8 @@
 "use client";
 
 import type { Route } from "next";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Link, Link as TransitionLink } from "next-view-transitions";
 import {
   SidebarGroup,
   SidebarMenu,
@@ -55,12 +55,12 @@ export function NavLinks({ items }: Props) {
                     <span>{item.title}</span>
                   </Link>
                 ) : (
-                  <TransitionLink href={item.url}>
+                  <Link href={item.url}>
                     <div className="flex aspect-square size-8 items-center justify-center">
                       {item.icon}
                     </div>
                     <span>{item.title}</span>
-                  </TransitionLink>
+                  </Link>
                 )}
               </SidebarMenuButton>
             </SidebarMenuItem>

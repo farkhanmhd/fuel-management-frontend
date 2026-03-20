@@ -22,7 +22,7 @@ export function ProtectedLayout({ children }: Props) {
       <SidebarInset className="md:peer-data-[variant=inset]:ml-8">
         <SiteHeader />
         <ScrollArea className="h-[calc(100dvh-65px)] px-6">
-          <section className="py-6">{children}</section>
+          <section className="py-1 pb-6">{children}</section>
         </ScrollArea>
       </SidebarInset>
     </SidebarProvider>
