@@ -19,7 +19,7 @@ const DriversTable = () => {
       </div>
       <div className="space-y-3">
         <TableProvider columns={dealerDriverColumns}>
-          <DataTableLayout>
+          <DataTableLayout fullWidth>
             <DataTableLoader data={detail.drivers} />
           </DataTableLayout>
           <DataTablePagination />

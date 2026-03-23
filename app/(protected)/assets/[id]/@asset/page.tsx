@@ -1,4 +1,5 @@
 import { getAssetDetail } from "@/components/modules/assets/detail-data";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type Props = {
@@ -9,10 +10,13 @@ const AssetCard = async ({ params }: Props) => {
   const { id } = await params;
   const detail = getAssetDetail(id);
 
-  const statusColors: Record<string, string> = {
-    MDS: "bg-blue-100 text-blue-800",
-    NEQ: "bg-green-100 text-green-800",
-    SEWA: "bg-yellow-100 text-yellow-800",
+  const statusColors: Record<
+    string,
+    React.ComponentProps<typeof Badge>["variant"]
+  > = {
+    MDS: "default",
+    NEQ: "secondary",
+    SEWA: "outline",
   };
 
   return (
@@ -20,7 +24,7 @@ const AssetCard = async ({ params }: Props) => {
       <CardHeader>
         <CardTitle>Aset Kendaraan</CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-3">
+      <CardContent className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-1">
           <p className="text-muted-foreground text-sm">Plat Kendaraan</p>
           <p className="font-medium font-mono">{detail.asset.licensePlate}</p>
@@ -53,11 +57,9 @@ const AssetCard = async ({ params }: Props) => {
         </div>
         <div className="flex flex-col gap-1">
           <p className="text-muted-foreground text-sm">Status</p>
-          <span
-            className={`inline-flex w-fit items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${statusColors[detail.asset.status]}`}
-          >
+          <Badge variant={statusColors[detail.asset.status]}>
             {detail.asset.status}
-          </span>
+          </Badge>
         </div>
         <div className="flex flex-col gap-1">
           <p className="text-muted-foreground text-sm">Keterangan Status</p>

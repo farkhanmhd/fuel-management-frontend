@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import { dealerAssetColumns } from "@/components/modules/dealers/asset-columns";
 import { getDealerDetail } from "@/components/modules/dealers/detail-data";
 import { TableProvider } from "@/components/table/context";
@@ -19,7 +18,7 @@ const AssetsTable = () => {
       </div>
       <div className="space-y-3">
         <TableProvider columns={dealerAssetColumns}>
-          <DataTableLayout>
+          <DataTableLayout fullWidth>
             <DataTableLoader data={detail.assets} />
           </DataTableLayout>
           <DataTablePagination />
@@ -30,11 +29,7 @@ const AssetsTable = () => {
 };
 
 const AssetsPage = () => {
-  return (
-    <Suspense>
-      <AssetsTable />
-    </Suspense>
-  );
+  return <AssetsTable />;
 };
 
 export default AssetsPage;

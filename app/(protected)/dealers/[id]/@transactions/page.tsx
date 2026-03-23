@@ -17,7 +17,7 @@ const TransactionsTable = () => {
   return (
     <div className="my-3 space-y-3">
       <TableProvider columns={dealerTransactionColumns}>
-        <DataTableLayout>
+        <DataTableLayout fullWidth>
           <DataTableLoader data={sortedTransactions} />
         </DataTableLayout>
         <DataTablePagination />

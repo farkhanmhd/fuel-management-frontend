@@ -14,7 +14,7 @@ interface DataTableLayoutProps {
 
 export const DataTableLayout = ({
   children,
-  fullWidth = undefined,
+  fullWidth = false,
   className,
 }: DataTableLayoutProps) => {
   "use no memo";

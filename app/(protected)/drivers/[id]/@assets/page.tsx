@@ -14,7 +14,7 @@ const AssetsTable = () => {
   return (
     <div className="my-3 space-y-3">
       <TableProvider columns={driverAssetColumns}>
-        <DataTableLayout>
+        <DataTableLayout fullWidth>
           <DataTableLoader data={detail.assets} />
         </DataTableLayout>
         <DataTablePagination />

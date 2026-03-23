@@ -647,7 +647,6 @@ export default function LoginPage() {
         {/* Top brand */}
         <div className="relative z-10">
           <div className="flex items-center gap-3">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <Image
               alt="Alfa Scorpii"
               className="rounded-xl bg-white object-contain p-2 shadow"
@@ -675,20 +674,6 @@ export default function LoginPage() {
       {/* Right panel — login form */}
       <div className="flex items-center justify-center bg-background p-8">
         <div className="w-full max-w-sm">
-          {/* Mobile-only brand header */}
-          <div className="mb-8 flex items-center gap-2 lg:hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <Image
-              alt="Alfa Scorpii"
-              className="rounded-lg object-contain"
-              height={32}
-              src="/alfa-scorpii.png"
-              width={32}
-            />
-            <span className="font-semibold text-muted-foreground text-sm uppercase tracking-widest">
-              Alfa Scorpii
-            </span>
-          </div>
           <LoginForm />
         </div>
       </div>

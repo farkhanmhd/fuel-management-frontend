@@ -76,15 +76,10 @@ export function LoginForm({
             Alfa Scorpii
           </p>
           <h1 className="mt-0.5 font-semibold text-foreground text-xl leading-tight tracking-tight">
-            Fuel Management
-            <br />
-            Information System
+            Fuel Management Information System
           </h1>
         </div>
       </div>
-
-      {/* Divider */}
-      <div className="h-px w-full bg-border" />
 
       {/* Form */}
       <form

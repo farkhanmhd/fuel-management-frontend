@@ -18,7 +18,7 @@ const TransactionLayout = ({ children }: Props) => {
   return (
     <TableProvider columns={transactionColumns}>
       <div className="flex flex-col gap-4">
-        <div className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="flex w-full items-center justify-between gap-4">
           <DataTableSearch className="w-full md:max-w-sm" />
           <DataTableViewOptions />
         </div>
