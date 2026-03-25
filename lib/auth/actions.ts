@@ -1,11 +1,8 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import type { LoginSchema } from "@/components/auth/login-form";
 import { authAxios } from "../axios";
-import type { AddUserSchema } from "./schema";
 import { type AuthApiResponse, withAuth } from "./utils";
 
 interface LoginData {
@@ -50,44 +47,4 @@ export const logoutAction = async () =>
       cookieStore.delete("auth-token");
       return response.data.meta;
     }
-  });
-
-export const resetUserPasswordAction = async (userId: string) =>
-  withAuth(async (token) => {
-    const response = await authAxios.post<AuthApiResponse<{ data: null }>>(
-      "/api/v1/resetpassword",
-      { uuid: userId },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    if (response.status === 401) {
-      redirect("/login");
-    }
-
-    return response.data.meta;
-  });
-
-type AddUserResponse = {
-  data: {
-    uuid: string;
-    username: string;
-    name: string;
-    updated_at: string;
-    created_at: string;
-  };
-};
-
-export const addUserAction = async (body: AddUserSchema) =>
-  withAuth(async (token) => {
-    const response = await authAxios.post<AuthApiResponse<AddUserResponse>>(
-      "/api/v1/createuser",
-      body,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    if (response.data.meta.code === 200) {
-      revalidateTag("users", "max");
-    }
-
-    return response.data.meta;
   });

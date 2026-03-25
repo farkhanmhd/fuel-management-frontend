@@ -8,10 +8,10 @@ import Link from "next/link";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import type { UserData } from "@/lib/api/users";
+import type { UserListData } from "@/lib/api/users";
 import { cn } from "@/lib/utils";
 
-export const userColumns: ColumnDef<UserData>[] = [
+export const userColumns: ColumnDef<UserListData>[] = [
   {
     accessorKey: "username",
     header: ({ column }) => (

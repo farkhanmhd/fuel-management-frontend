@@ -18,10 +18,7 @@ export default async function proxy(req: NextRequest) {
   }
 
   // 2. If there is a token, verify its integrity
-  let isValidToken = false;
-  if (token) {
-    isValidToken = await verifyToken(token);
-  }
+  const isValidToken = await verifyToken(token);
 
   // 3. If they have an invalid token and are trying to access a protected route
   if (!(isValidToken || isPublicRoute)) {

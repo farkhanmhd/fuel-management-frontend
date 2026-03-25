@@ -1,3 +1,4 @@
+import axios from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
@@ -21,6 +22,39 @@ export const getAccessToken = cache(async () => {
   return token;
 });
 
+export interface ApiError {
+  code: number | null; // from your response meta
+  message: string;
+  status: number | null;
+}
+
 export const withAuth = async <T>(
   fn: (token: string) => Promise<T>
-): Promise<T> => fn(await getAccessToken());
+): Promise<{ data: T; error: null } | { data: null; error: ApiError }> => {
+  try {
+    const data = await fn(await getAccessToken());
+    return { data, error: null };
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      console.error(err.message);
+      return {
+        data: null,
+        error: {
+          message: err.response?.data?.meta?.message ?? err.message,
+          status: err.response?.status ?? null,
+          code: err.response?.data?.meta?.code,
+        },
+      };
+    }
+
+    console.error(err instanceof Error ? err.message : String(err));
+    return {
+      data: null,
+      error: {
+        message: err instanceof Error ? err.message : String(err),
+        status: null,
+        code: null,
+      },
+    };
+  }
+};

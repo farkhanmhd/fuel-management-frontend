@@ -11,17 +11,16 @@ import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import { useForm, useStore } from "@tanstack/react-form";
 import { useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import type { UserDataResponse } from "@/lib/api/users";
-
-// import { updateUserAction } from "@/lib/auth/actions";
+import { updateUserAction } from "@/lib/actions/users";
+import type { UserData } from "@/lib/api/users";
+import { updateUserSchema } from "@/lib/schemas/users";
 
 interface UserInfoCardProps {
-  user: UserDataResponse;
+  user: UserData;
 }
 
 type InfoField = {
@@ -30,11 +29,6 @@ type InfoField = {
   mono?: boolean;
   icon: IconSvgElement;
 };
-
-const updateUserSchema = z.object({
-  username: z.string().min(1, "Username wajib diisi"),
-  name: z.string().min(1, "Nama wajib diisi"),
-});
 
 const fields: InfoField[] = [
   {
@@ -52,6 +46,7 @@ const fields: InfoField[] = [
 
 export function UserInfoCard({ user }: UserInfoCardProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [userData, setUserData] = useState(user);
 
   const form = useForm({
     validators: { onSubmit: updateUserSchema },
@@ -59,8 +54,27 @@ export function UserInfoCard({ user }: UserInfoCardProps) {
       username: user.username,
       name: user.name,
     },
-    onSubmit: ({ value }) => {
-      toast(`Submitted data: ${JSON.stringify(value)}`);
+    onSubmit: async ({ value }) => {
+      try {
+        const { data, error } = await updateUserAction(user.uuid, value);
+        if (data) {
+          toast.success("Data user berhasil diperbarui");
+          setUserData((prev) => ({ ...prev, ...value }));
+          setIsEditing(false);
+        } else {
+          toast.error("Gagal menambahkan user", {
+            description:
+              error?.message ??
+              "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi.",
+          });
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error("Gagal menambahkan user", {
+            description: `Terjadi kesalahan pada server. Silakan coba beberapa saat lagi. ${error.message}`,
+          });
+        }
+      }
     },
   });
 
@@ -206,9 +220,9 @@ export function UserInfoCard({ user }: UserInfoCardProps) {
                   </p>
                   <p
                     className={`truncate font-medium text-sm ${mono ? "font-mono" : ""}`}
-                    title={user[name]}
+                    title={userData[name]}
                   >
-                    {user[name]}
+                    {userData[name]}
                   </p>
                 </div>
               </div>

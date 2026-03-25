@@ -5,7 +5,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
-import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -25,36 +24,26 @@ export type Asset = {
 export const assetColumns: ColumnDef<Asset>[] = [
   {
     accessorKey: "licensePlate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Plat Kendaraan" />
-    ),
+    header: "Plat Kendaraan",
   },
   {
     accessorKey: "modelName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Model" />
-    ),
+    header: "Model",
   },
   {
     accessorKey: "assetYear",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Tahun" />
-    ),
+    header: "Tahun",
     cell: ({ row }) => {
       return row.original.assetYear;
     },
   },
   {
     accessorKey: "dealerName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Dealer" />
-    ),
+    header: "Dealer",
   },
   {
     accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
+    header: "Status",
     cell: ({ row }) => {
       const statusColors: Record<
         string,
@@ -64,6 +53,7 @@ export const assetColumns: ColumnDef<Asset>[] = [
         NEQ: "secondary",
         SEWA: "outline",
       };
+
       return (
         <Badge
           className="font-bold"
@@ -76,27 +66,21 @@ export const assetColumns: ColumnDef<Asset>[] = [
   },
   {
     accessorKey: "totalKilometer",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total KM" />
-    ),
+    header: "Total KM",
     cell: ({ row }) => {
       return `${row.original.totalKilometer.toLocaleString("id-ID")} km`;
     },
   },
   {
     accessorKey: "totalLiter",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total Liter" />
-    ),
+    header: "Total Liter",
     cell: ({ row }) => {
       return `${row.original.totalLiter.toLocaleString("id-ID")} L`;
     },
   },
   {
     accessorKey: "averageKilometerPerLitre",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Rata-rata KM/L" />
-    ),
+    header: "Rata-rata KM/L",
     cell: ({ row }) => {
       return `${row.original.averageKilometerPerLitre.toFixed(2)} km/L`;
     },

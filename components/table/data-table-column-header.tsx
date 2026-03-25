@@ -1,9 +1,4 @@
-import {
-  ArrowDown,
-  ArrowUp,
-  ChevronsUpDown,
-  EyeOff,
-} from "@hugeicons/core-free-icons";
+import { ArrowDown, ArrowUp, ChevronsUpDown } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { Column } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
@@ -11,7 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
@@ -69,15 +63,6 @@ export function DataTableColumnHeader<TData, TValue>({
               strokeWidth={2}
             />
             Desc
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-            <HugeiconsIcon
-              className="h-3.5 w-3.5 text-muted-foreground/70"
-              icon={EyeOff}
-              strokeWidth={2}
-            />
-            Hide
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

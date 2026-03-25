@@ -5,7 +5,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
-import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -34,9 +33,7 @@ const formatIDR = (amount: number) => {
 export const transactionColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "date",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Tanggal" />
-    ),
+    header: "Tanggal",
     cell: ({ row }) => {
       const date = new Date(row.original.date);
       return date.toLocaleDateString("id-ID", {
@@ -50,63 +47,47 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "driverName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Nama Driver" />
-    ),
+    header: "Nama Driver",
   },
   {
     accessorKey: "assetPlate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Plat Kendaraan" />
-    ),
+    header: "Plat Kendaraan",
   },
   {
     accessorKey: "modelName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Model Kendaraan" />
-    ),
+    header: "Model Kendaraan",
   },
   {
     accessorKey: "transactionTotal",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total Transaksi" />
-    ),
+    header: "Total Transaksi",
     cell: ({ row }) => {
       return formatIDR(row.original.transactionTotal);
     },
   },
   {
     accessorKey: "litresPurchased",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Liter" />
-    ),
+    header: "Liter",
     cell: ({ row }) => {
       return `${row.original.litresPurchased.toFixed(2)} L`;
     },
   },
   {
     accessorKey: "lastKilometer",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="KM Sebelum" />
-    ),
+    header: "KM Sebelum",
     cell: ({ row }) => {
       return `${row.original.lastKilometer.toLocaleString("id-ID")} km`;
     },
   },
   {
     accessorKey: "refillKilometer",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="KM Setelah" />
-    ),
+    header: "KM Setelah",
     cell: ({ row }) => {
       return `${row.original.refillKilometer.toLocaleString("id-ID")} km`;
     },
   },
   {
     accessorKey: "distanceCovered",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Jarak Tempuh" />
-    ),
+    header: "Jarak Tempuh",
     cell: ({ row }) => {
       const distance =
         row.original.refillKilometer - row.original.lastKilometer;
@@ -115,9 +96,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "kiloMeterPerLitre",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="KM/Liter" />
-    ),
+    header: "KM/Liter",
     cell: ({ row }) => {
       return `${row.original.kiloMeterPerLitre.toFixed(2)} km/L`;
     },

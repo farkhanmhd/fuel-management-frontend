@@ -5,7 +5,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
-import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -22,42 +21,30 @@ export type DriverTable = {
 export const driverColumns: ColumnDef<DriverTable>[] = [
   {
     accessorKey: "nip",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="NIP" />
-    ),
+    header: "NIP",
     cell: ({ row }) => {
       return row.original.nip;
     },
   },
   {
     accessorKey: "name",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Nama" />
-    ),
+    header: "Nama",
   },
   {
     accessorKey: "department",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Departemen" />
-    ),
+    header: "Departemen",
   },
   {
     accessorKey: "dealerName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Dealer" />
-    ),
+    header: "Dealer",
   },
   {
     accessorKey: "area",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Area" />
-    ),
+    header: "Area",
   },
   {
     accessorKey: "totalAssetHandled",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Jumlah Aset" />
-    ),
+    header: "Jumlah Aset",
     cell: ({ row }) => {
       return row.original.totalAssetHandled;
     },

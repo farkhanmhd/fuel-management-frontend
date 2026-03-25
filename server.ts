@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Elysia } from "elysia";
 declare const app: Elysia<"", {
     decorator: {};
@@ -29,6 +27,79 @@ declare const app: Elysia<"", {
     };
 } & {
     typebox: {};
+    error: {};
+} & {
+    typebox: {
+        readonly getUserListResponseSchema: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TString;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                users: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
+                    uuid: import("@sinclair/typebox").TString;
+                    username: import("@sinclair/typebox").TString;
+                    name: import("@sinclair/typebox").TString;
+                    created_at: import("@sinclair/typebox").TString;
+                    updated_at: import("@sinclair/typebox").TString;
+                    status: import("@sinclair/typebox").TString;
+                    password_changed_at: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                }>>;
+            }>;
+        }>;
+        readonly getUserByIdResponseSchema: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TString;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                user: import("@sinclair/typebox").TObject<{
+                    uuid: import("@sinclair/typebox").TString;
+                    username: import("@sinclair/typebox").TString;
+                    name: import("@sinclair/typebox").TString;
+                    created_at: import("@sinclair/typebox").TString;
+                    updated_at: import("@sinclair/typebox").TString;
+                    status: import("@sinclair/typebox").TString;
+                    password_changed_at: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                }>;
+            }>;
+        }>;
+        readonly createUserResponseSchema: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TString;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                uuid: import("@sinclair/typebox").TString;
+                username: import("@sinclair/typebox").TString;
+                name: import("@sinclair/typebox").TString;
+                updated_at: import("@sinclair/typebox").TString;
+                created_at: import("@sinclair/typebox").TString;
+            }>;
+        }>;
+        readonly createUserSchema: import("@sinclair/typebox").TObject<{
+            username: import("@sinclair/typebox").TString;
+            name: import("@sinclair/typebox").TString;
+            password: import("@sinclair/typebox").TString;
+        }>;
+        readonly updateUserResponseSchema: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TString;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                uuid: import("@sinclair/typebox").TString;
+                username: import("@sinclair/typebox").TString;
+                name: import("@sinclair/typebox").TString;
+                created_at: import("@sinclair/typebox").TString;
+                updated_at: import("@sinclair/typebox").TString;
+                status: import("@sinclair/typebox").TString;
+                password_changed_at: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+            }>;
+        }>;
+        readonly resetPasswordResponseSchema: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TString;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                userId: import("@sinclair/typebox").TString;
+            }>;
+        }>;
+        readonly resetPasswordBodySchema: import("@sinclair/typebox").TObject<{
+            userId: import("@sinclair/typebox").TString;
+        }>;
+    };
     error: {};
 }, {
     schema: {};
@@ -102,7 +173,7 @@ declare const app: Elysia<"", {
                 route: string;
                 request: Request;
                 store: {};
-                status: <const Code extends number | keyof import("elysia").StatusMap, const T = Code extends 100 | 101 | 102 | 103 | 200 | 201 | 202 | 203 | 204 | 205 | 206 | 207 | 208 | 300 | 301 | 302 | 303 | 304 | 307 | 308 | 400 | 401 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 420 | 421 | 422 | 423 | 424 | 425 | 426 | 428 | 429 | 431 | 451 | 500 | 501 | 502 | 503 | 504 | 505 | 506 | 507 | 508 | 510 | 511 ? {
+                status: <const Code extends number | keyof import("elysia").StatusMap, const T = Code extends 200 | 401 | 100 | 101 | 102 | 103 | 201 | 202 | 203 | 204 | 205 | 206 | 207 | 208 | 300 | 301 | 302 | 303 | 304 | 307 | 308 | 400 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 420 | 421 | 422 | 423 | 424 | 425 | 426 | 428 | 429 | 431 | 451 | 500 | 501 | 502 | 503 | 504 | 505 | 506 | 507 | 508 | 510 | 511 ? {
                     readonly 100: "Continue";
                     readonly 101: "Switching Protocols";
                     readonly 102: "Processing";
@@ -230,6 +301,7 @@ declare const app: Elysia<"", {
                 readonly bearer: string | undefined;
             }) => Promise<{
                 user: {
+                    accessToken: string;
                     uuid: string;
                     username: string;
                     name: string;
@@ -297,6 +369,275 @@ declare const app: Elysia<"", {
             };
         };
     };
+} & {
+    api: {
+        users: {};
+    } & {
+        users: {
+            get: {
+                body: {};
+                params: {};
+                query: {};
+                headers: {};
+                response: {
+                    200: {
+                        data: {
+                            users: {
+                                name: string;
+                                username: string;
+                                uuid: string;
+                                created_at: string;
+                                updated_at: string;
+                                status: string;
+                                password_changed_at: string | null;
+                            }[];
+                        };
+                        status: string;
+                        message: string;
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                };
+            };
+        };
+    } & {
+        users: {
+            create: {
+                post: {
+                    body: {
+                        name: string;
+                        username: string;
+                        password: string;
+                    };
+                    params: {};
+                    query: {};
+                    headers: {};
+                    response: {
+                        200: {
+                            data: {
+                                name: string;
+                                username: string;
+                                uuid: string;
+                                created_at: string;
+                                updated_at: string;
+                            };
+                            status: string;
+                            message: string;
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                    };
+                };
+            };
+        };
+    } & {
+        users: {
+            resetpassword: {
+                post: {
+                    body: {
+                        userId: string;
+                    };
+                    params: {};
+                    query: {};
+                    headers: {};
+                    response: {
+                        200: {
+                            data: {
+                                userId: string;
+                            };
+                            status: string;
+                            message: string;
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                    };
+                };
+            };
+        };
+    } & {
+        users: {
+            ":userId": {
+                get: {
+                    body: {};
+                    params: {
+                        userId: string;
+                    };
+                    query: {};
+                    headers: {};
+                    response: {
+                        200: {
+                            data: {
+                                user: {
+                                    name: string;
+                                    username: string;
+                                    uuid: string;
+                                    created_at: string;
+                                    updated_at: string;
+                                    status: string;
+                                    password_changed_at: string | null;
+                                };
+                            };
+                            status: string;
+                            message: string;
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                    };
+                };
+            };
+        };
+    } & {
+        users: {
+            ":userId": {
+                update: {
+                    patch: {
+                        body: {
+                            name: string;
+                            username: string;
+                        };
+                        params: {
+                            userId: string;
+                        };
+                        query: {};
+                        headers: {};
+                        response: {
+                            200: {
+                                data: {
+                                    name: string;
+                                    username: string;
+                                    uuid: string;
+                                    created_at: string;
+                                    updated_at: string;
+                                    status: string;
+                                    password_changed_at: string | null;
+                                };
+                                status: string;
+                                message: string;
+                            };
+                            422: {
+                                type: "validation";
+                                on: string;
+                                summary?: string;
+                                message?: string;
+                                found?: unknown;
+                                property?: string;
+                                expected?: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    };
+} & {
+    api: {
+        "user-permissions": {};
+    } & {
+        "user-permissions": {
+            get: {
+                body: {};
+                params: {};
+                query: {};
+                headers: {};
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "User permissions fetched successfully";
+                        readonly data: {
+                            readonly permissions: {
+                                id: number;
+                                name: string;
+                                createdAt: Date;
+                            }[];
+                        };
+                    } & {
+                        readonly status: "success";
+                        readonly message: "User permissions fetched successfully";
+                        readonly data: {
+                            readonly permissions: {
+                                id: number;
+                                name: string;
+                                createdAt: Date;
+                            }[];
+                        };
+                    };
+                };
+            };
+        };
+    } & {
+        "user-permissions": {
+            ":userId": {
+                get: {
+                    body: {};
+                    params: {
+                        userId: string;
+                    };
+                    query: {};
+                    headers: {};
+                    response: {
+                        200: {
+                            readonly status: "success";
+                            readonly message: "User permissions fetched successfully";
+                            readonly data: {
+                                readonly permissions: {
+                                    id: number;
+                                    name: string;
+                                    createdAt: Date;
+                                }[];
+                            };
+                        } & {
+                            readonly status: "success";
+                            readonly message: "User permissions fetched successfully";
+                            readonly data: {
+                                readonly permissions: {
+                                    id: number;
+                                    name: string;
+                                    createdAt: Date;
+                                }[];
+                            };
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
 }, {
     derive: {};
     resolve: {};
@@ -313,12 +654,6 @@ declare const app: Elysia<"", {
     derive: {};
     resolve: {};
     schema: {};
-} & {
-    derive: {};
-    resolve: {};
-    schema: {};
-    standaloneSchema: {};
-    response: {};
 } & {
     derive: {};
     resolve: {};

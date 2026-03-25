@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { addUserAction } from "@/lib/auth/actions";
+import { addUserAction } from "@/lib/actions/users";
 import { type AddUserSchema, addUserSchema } from "@/lib/auth/schema";
 
 const defaultValues: AddUserSchema = {
@@ -41,16 +41,17 @@ export function AddUserDialog() {
     defaultValues,
     onSubmit: async ({ value }) => {
       try {
-        const result = await addUserAction(value);
-        if (result.code === 200) {
+        const { data, error } = await addUserAction(value);
+        if (data) {
           toast.success("User berhasil ditambahkan", {
             description: `Akun untuk ${value.name} (@${value.username}) telah dibuat.`,
           });
           setOpen(false);
+          form.reset();
         } else {
           toast.error("Gagal menambahkan user", {
             description:
-              result.message ??
+              error.message ??
               "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi.",
           });
         }

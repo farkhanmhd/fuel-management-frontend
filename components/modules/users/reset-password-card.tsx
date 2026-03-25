@@ -20,11 +20,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import type { UserDataResponse } from "@/lib/api/users";
-import { resetUserPasswordAction } from "@/lib/auth/actions";
+import { resetUserPasswordAction } from "@/lib/actions/users";
+import type { UserData } from "@/lib/api/users";
 
 interface ResetPasswordCardProps {
-  user: UserDataResponse;
+  user: UserData;
 }
 
 export function ResetPasswordCard({ user }: ResetPasswordCardProps) {
@@ -32,18 +32,27 @@ export function ResetPasswordCard({ user }: ResetPasswordCardProps) {
   const [open, setOpen] = useState(false);
   const handleResetPassword = () => {
     startTransition(async () => {
-      const result = await resetUserPasswordAction(user.uuid);
-      if (result.code === 200) {
-        toast.success("Password berhasil direset", {
-          description: `User ${user.username} akan otomatis logout dari semua sesi aktif.`,
-        });
-        setOpen(false);
-      } else {
-        toast.error("Gagal mereset password", {
-          description:
-            result.message ??
-            "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi atau hubungi administrator.",
-        });
+      try {
+        const { data, error } = await resetUserPasswordAction(user.uuid);
+
+        if (data) {
+          toast.success("Password berhasil direset", {
+            description: `User ${user.username} akan otomatis logout dari semua sesi aktif.`,
+          });
+          setOpen(false);
+        } else {
+          toast.error("Gagal mereset password", {
+            description:
+              error?.message ??
+              "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi atau hubungi administrator.",
+          });
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error("Reset Password Gagal", {
+            description: `Terjadi kesalahan pada server. Silakan coba beberapa saat lagi. ${error.message}`,
+          });
+        }
       }
     });
   };

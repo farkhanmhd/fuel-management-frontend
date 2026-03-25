@@ -1,53 +1,63 @@
-import { cacheTag } from "next/cache";
-import { cacheLife } from "next/dist/server/use-cache/cache-life";
-import type { AuthApiResponse } from "../auth/utils";
+import { notFound } from "next/navigation";
 import { withAuth } from "../auth/utils";
-import { authAxios } from "../axios";
+import { api } from "../axios";
+import type { elysia } from "../elysia";
+import type { AddUserSchema, UpdateUserDataSchema } from "../schemas/users";
+import type { BaseAPIResponse } from "./utils";
 
-export type UserDataResponse = {
-  uuid: string;
-  username: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  status: string;
-  password_changed_at: string | null;
-};
+interface CreatedUserResponse extends BaseAPIResponse {
+  data: {
+    created_at: string;
+    name: string;
+    updated_at: string;
+    username: string;
+    uuid: string;
+  };
+}
 
-export interface UserData extends UserDataResponse {
+export type GetUsersResponse = NonNullable<
+  Awaited<ReturnType<typeof elysia.api.users.get>>
+>["data"];
+
+type UsersParamReturn = ReturnType<typeof elysia.api.users>;
+type GetUserByIdResponse = Awaited<ReturnType<UsersParamReturn["get"]>>["data"];
+type UserList = NonNullable<GetUsersResponse>["data"]["users"][number];
+export interface UserListData extends UserList {
   id: string;
 }
 
-export const fetchCachedUsers = async (token: string) => {
-  "use cache";
-  cacheTag("users");
-  cacheLife({
-    stale: 0,
-    revalidate: 60 * 15,
-    expire: 60 * 15,
-  });
+export type UserData = NonNullable<GetUserByIdResponse>["data"]["user"];
 
-  const response = await authAxios.get<AuthApiResponse<UserDataResponse[]>>(
-    "/api/v1/userlist",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  return response.data.data;
-};
+interface UpdateUserDataParams {
+  body: UpdateUserDataSchema;
+  userId: string;
+}
 
 export abstract class UsersApi {
-  static getUsers() {
-    return withAuth(fetchCachedUsers);
+  static async getUsers() {
+    const { data } = await withAuth(async (token: string) => {
+      const response = await api.get<GetUsersResponse>("/api/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    });
+
+    if (!data) {
+      notFound();
+    }
+
+    const users = data.data.users;
+
+    return users;
   }
 
-  static getUserById(userId: string) {
-    return withAuth(async (token: string) => {
-      const response = await authAxios.get<AuthApiResponse<UserDataResponse>>(
-        `/api/v1/showuser/${userId}`,
+  static async getUserById(userId: string) {
+    const { data } = await withAuth(async (token: string) => {
+      const response = await api.get<GetUserByIdResponse>(
+        `/api/users/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +65,65 @@ export abstract class UsersApi {
         }
       );
 
-      return response.data.data;
+      return response.data;
     });
+
+    if (!data) {
+      notFound();
+    }
+
+    return data.data.user;
+  }
+
+  static async addUser(body: AddUserSchema) {
+    const result = await withAuth(async (token) => {
+      const response = await api.post<CreatedUserResponse>(
+        "/api/users/create",
+        body,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      return response.data;
+    });
+
+    return result;
+  }
+
+  static async updateUserData(params: UpdateUserDataParams) {
+    const result = await withAuth(async (token) => {
+      const response = await api.patch(
+        `/api/users/${params.userId}/update`,
+        params.body,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    });
+
+    return result;
+  }
+
+  static async resetUserPassword(userId: string) {
+    const result = await withAuth(async (token) => {
+      const response = await api.post(
+        "/api/users/resetpassword",
+        {
+          userId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    });
+
+    return result;
   }
 }
