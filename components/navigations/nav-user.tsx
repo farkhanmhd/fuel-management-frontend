@@ -28,7 +28,7 @@ export function NavUser() {
           onClick={handleLinkClick}
           size="lg"
         >
-          <Link href="/dashboard">
+          <Link href="/account">
             <div className="flex aspect-square size-8 items-center justify-center">
               <HugeiconsIcon icon={User} strokeWidth={2} />
             </div>
