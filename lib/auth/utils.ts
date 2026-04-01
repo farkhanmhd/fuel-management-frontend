@@ -36,11 +36,11 @@ export const withAuth = async <T>(
     return { data, error: null };
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      console.error(err.message);
+      console.error(err.response?.data);
       return {
         data: null,
         error: {
-          message: err.response?.data?.meta?.message ?? err.message,
+          message: err.response?.data?.message,
           status: err.response?.status ?? null,
           code: err.response?.data?.meta?.code,
         },

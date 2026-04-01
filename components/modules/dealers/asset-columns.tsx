@@ -5,11 +5,11 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
-import type { Asset } from "@/components/modules/dealers/detail-data";
 import { buttonVariants } from "@/components/ui/button";
+import type { DealerAsset } from "@/lib/api/dealers";
 import { cn } from "@/lib/utils";
 
-export const dealerAssetColumns: ColumnDef<Asset>[] = [
+export const dealerAssetColumns: ColumnDef<DealerAsset>[] = [
   {
     accessorKey: "licensePlate",
     header: "Plat Kendaraan",
@@ -27,10 +27,10 @@ export const dealerAssetColumns: ColumnDef<Asset>[] = [
     header: "Driver",
   },
   {
-    accessorKey: "totalKilometer",
+    accessorKey: "totalKiloMeter",
     header: "Total KM",
     cell: ({ row }) => {
-      return row.original.totalKilometer.toLocaleString("id-ID");
+      return row.original.totalKiloMeter;
     },
   },
   {

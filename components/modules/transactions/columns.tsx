@@ -80,7 +80,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "refillKilometer",
-    header: "KM Setelah",
+    header: "KM Isi",
     cell: ({ row }) => {
       return `${row.original.refillKilometer.toLocaleString("id-ID")} km`;
     },

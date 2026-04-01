@@ -85,7 +85,7 @@ const EvidenceCard = () => {
                   alt="Struk"
                   className="max-h-full max-w-full rounded-lg object-contain transition-transform"
                   height={1000}
-                  src={evidence.receiptPhotoUrl}
+                  src={evidence.invoicePhotoUrl}
                   width={1000}
                 />
               </ImageZoom>

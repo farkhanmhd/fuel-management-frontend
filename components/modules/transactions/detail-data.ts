@@ -1,10 +1,10 @@
 export interface TransactionEvidence {
   gasStationPhotoUrl: string;
   id: string;
+  invoicePhotoUrl: string;
   litrePurchased: number;
   odometer: number;
   odometerPhotoUrl: string;
-  receiptPhotoUrl: string;
   totalPaid: number;
 }
 
@@ -52,7 +52,7 @@ export const mockTransactionDetails: Record<string, TransactionDetail> = {
     evidence: {
       id: "ev-1",
       odometerPhotoUrl: "/images/dashboard.jpeg",
-      receiptPhotoUrl: "/images/struk.webp",
+      invoicePhotoUrl: "/images/struk.webp",
       gasStationPhotoUrl: "/images/spbu.jpg",
       odometer: 456_788,
       totalPaid: 3_500_000,
@@ -89,7 +89,7 @@ export const mockTransactionDetails: Record<string, TransactionDetail> = {
     evidence: {
       id: "ev-2",
       odometerPhotoUrl: "/images/dashboard.jpeg",
-      receiptPhotoUrl: "/images/struk.webp",
+      invoicePhotoUrl: "/images/struk.webp",
       gasStationPhotoUrl: "/images/spbu.jpg",
       odometer: 321_000,
       totalPaid: 2_800_000,

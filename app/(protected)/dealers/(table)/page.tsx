@@ -4,7 +4,7 @@ import { DealersApi } from "@/lib/api/dealers";
 const DealersPage = async () => {
   const { data } = await DealersApi.getDealers();
 
-  return <DataTableLoader data={data} />;
+  return <DataTableLoader data={data || []} />;
 };
 
 export default DealersPage;

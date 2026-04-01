@@ -5,8 +5,9 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
-import type { TransactionHistory } from "@/components/modules/dealers/detail-data";
+
 import { buttonVariants } from "@/components/ui/button";
+import type { DealerTransaction } from "@/lib/api/dealers";
 import { cn } from "@/lib/utils";
 
 const formatIDR = (amount: number) => {
@@ -17,12 +18,12 @@ const formatIDR = (amount: number) => {
   }).format(amount);
 };
 
-export const dealerTransactionColumns: ColumnDef<TransactionHistory>[] = [
+export const dealerTransactionColumns: ColumnDef<DealerTransaction>[] = [
   {
     accessorKey: "date",
     header: "Tanggal",
     cell: ({ row }) => {
-      const date = new Date(row.original.date);
+      const date = new Date(row.original.transactionTime);
       return date.toLocaleDateString("id-ID", {
         day: "2-digit",
         month: "short",
