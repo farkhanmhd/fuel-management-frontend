@@ -1,11 +1,12 @@
 "use client";
 
-import { EyeIcon } from "@hugeicons/core-free-icons";
+import { EyeIcon, UserCheck01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import { useAlertDialog } from "@/components/providers/alert-dialog-provider";
+import { Button, buttonVariants } from "@/components/ui/button";
 import type { DealerAsset } from "@/lib/api/dealers";
 import { cn } from "@/lib/utils";
 
@@ -50,13 +51,29 @@ export const dealerAssetColumns: ColumnDef<DealerAsset>[] = [
   {
     id: "Actions",
     cell: ({ row }) => {
+      const { onOpenChange, setData } = useAlertDialog<DealerAsset>();
+      const handleOpenDialog = () => {
+        onOpenChange(true);
+        setData(row.original);
+      };
+
       return (
-        <Link
-          className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
-          href={`/assets/${row.original.id}` as Route}
-        >
-          <HugeiconsIcon icon={EyeIcon} />
-        </Link>
+        <div className="flex justify-end gap-2">
+          <Button onClick={handleOpenDialog} size="icon-sm" variant="ghost">
+            <HugeiconsIcon
+              className="size-4"
+              icon={UserCheck01Icon}
+              strokeWidth={2}
+            />
+          </Button>
+
+          <Link
+            className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+            href={`/assets/${row.original.id}` as Route}
+          >
+            <HugeiconsIcon icon={EyeIcon} />
+          </Link>
+        </div>
       );
     },
   },

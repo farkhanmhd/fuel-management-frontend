@@ -36,7 +36,6 @@ export const withAuth = async <T>(
     return { data, error: null };
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      console.error(err.response?.data);
       return {
         data: null,
         error: {
@@ -47,7 +46,6 @@ export const withAuth = async <T>(
       };
     }
 
-    console.error(err instanceof Error ? err.message : String(err));
     return {
       data: null,
       error: {

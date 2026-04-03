@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Elysia } from "elysia";
 declare const app: Elysia<"", {
     decorator: {};
@@ -44,76 +42,22 @@ declare const app: Elysia<"", {
     error: {};
 } & {
     typebox: {
-        readonly getUserListResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                users: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
-                    uuid: import("@sinclair/typebox").TString;
-                    username: import("@sinclair/typebox").TString;
-                    name: import("@sinclair/typebox").TString;
-                    created_at: import("@sinclair/typebox").TString;
-                    updated_at: import("@sinclair/typebox").TString;
-                    status: import("@sinclair/typebox").TString;
-                    password_changed_at: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                }>>;
-            }>;
-        }>;
-        readonly getUserByIdResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                user: import("@sinclair/typebox").TObject<{
-                    uuid: import("@sinclair/typebox").TString;
-                    username: import("@sinclair/typebox").TString;
-                    name: import("@sinclair/typebox").TString;
-                    created_at: import("@sinclair/typebox").TString;
-                    updated_at: import("@sinclair/typebox").TString;
-                    status: import("@sinclair/typebox").TString;
-                    password_changed_at: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                }>;
-            }>;
-        }>;
-        readonly createUserResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                uuid: import("@sinclair/typebox").TString;
-                username: import("@sinclair/typebox").TString;
-                name: import("@sinclair/typebox").TString;
-                updated_at: import("@sinclair/typebox").TString;
-                created_at: import("@sinclair/typebox").TString;
-            }>;
-        }>;
         readonly createUserSchema: import("@sinclair/typebox").TObject<{
             username: import("@sinclair/typebox").TString;
             name: import("@sinclair/typebox").TString;
             password: import("@sinclair/typebox").TString;
         }>;
-        readonly updateUserResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                uuid: import("@sinclair/typebox").TString;
-                username: import("@sinclair/typebox").TString;
-                name: import("@sinclair/typebox").TString;
-                created_at: import("@sinclair/typebox").TString;
-                updated_at: import("@sinclair/typebox").TString;
-                status: import("@sinclair/typebox").TString;
-                password_changed_at: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-            }>;
-        }>;
-        readonly resetPasswordResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                userId: import("@sinclair/typebox").TString;
-            }>;
+        readonly updateUserSchema: import("@sinclair/typebox").TObject<{
+            name: import("@sinclair/typebox").TString;
+            username: import("@sinclair/typebox").TString;
         }>;
         readonly resetPasswordBodySchema: import("@sinclair/typebox").TObject<{
             userId: import("@sinclair/typebox").TString;
         }>;
     };
+    error: {};
+} & {
+    typebox: {};
     error: {};
 } & {
     typebox: {
@@ -124,99 +68,23 @@ declare const app: Elysia<"", {
     };
     error: {};
 } & {
-    typebox: {
-        readonly getDriverListResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                drivers: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
-                    id: import("@sinclair/typebox").TString;
-                    nip: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                    name: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                    department: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                    dealerName: import("@sinclair/typebox").TString;
-                    area: import("@sinclair/typebox").TString;
-                    totalAssetHandled: import("@sinclair/typebox").TNumber;
-                }>>;
-            }>;
-        }>;
-    };
+    typebox: {};
     error: {};
 } & {
     typebox: {
-        readonly getFuelVariantListResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                fuelVariants: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
-                    id: import("@sinclair/typebox").TNumber;
-                    name: import("@sinclair/typebox").TString;
-                }>>;
-            }>;
-        }>;
-        readonly getFuelVariantByIdResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TNumber;
-                name: import("@sinclair/typebox").TString;
-            }>;
-        }>;
-        readonly createFuelVariantResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TNumber;
-                name: import("@sinclair/typebox").TString;
-            }>;
-        }>;
         readonly createFuelVariantSchema: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
-        }>;
-        readonly updateFuelVariantResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TNumber;
-                name: import("@sinclair/typebox").TString;
-            }>;
         }>;
         readonly updateFuelVariantSchema: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
         }>;
-        readonly deleteFuelVariantResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TNumber;
-            }>;
-        }>;
     };
     error: {};
 } & {
-    typebox: {
-        readonly getDriverAssetsResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                assets: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
-                    id: import("@sinclair/typebox").TString;
-                    model: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                    licensePlate: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                }>>;
-            }>;
-        }>;
-    };
+    typebox: {};
     error: {};
 } & {
     typebox: {
-        readonly createTransactionResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                transaction_id: import("@sinclair/typebox").TString;
-            }>;
-        }>;
         readonly createTransactionSchema: import("@sinclair/typebox").TObject<{
             asset_id: import("@sinclair/typebox").TString;
             fuel_variant_id: import("@sinclair/typebox").TNumber;
@@ -228,29 +96,6 @@ declare const app: Elysia<"", {
             station_photo: import("@sinclair/typebox").TUnsafe<File>;
             odometer_photo: import("@sinclair/typebox").TUnsafe<File>;
         }>;
-        readonly getTransactionsResponseSchema: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TString;
-            message: import("@sinclair/typebox").TString;
-            data: import("@sinclair/typebox").TObject<{
-                transactions: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
-                    id: import("@sinclair/typebox").TString;
-                    assetPlate: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                    date: import("@sinclair/typebox").TString;
-                    driverName: import("@sinclair/typebox").TString;
-                    kiloMeterPerLitre: import("@sinclair/typebox").TNumber;
-                    lastKilometer: import("@sinclair/typebox").TNumber;
-                    litresPurchased: import("@sinclair/typebox").TNumber;
-                    modelName: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                    refillKilometer: import("@sinclair/typebox").TNumber;
-                    transactionTotal: import("@sinclair/typebox").TNumber;
-                }>>;
-                pagination: import("@sinclair/typebox").TObject<{
-                    page: import("@sinclair/typebox").TNumber;
-                    limit: import("@sinclair/typebox").TNumber;
-                    total: import("@sinclair/typebox").TNumber;
-                }>;
-            }>;
-        }>;
         readonly transactionQuerySchema: import("@sinclair/typebox").TObject<{
             page: import("@sinclair/typebox").TNumber;
             limit: import("@sinclair/typebox").TNumber;
@@ -258,6 +103,9 @@ declare const app: Elysia<"", {
     };
     error: {};
 }) & {
+    typebox: {};
+    error: {};
+} & {
     typebox: {};
     error: {};
 }, ({
@@ -817,8 +665,8 @@ declare const app: Elysia<"", {
                                         litrePurchased: number;
                                         previousKilometer: number | null;
                                         currentKilometer: number | null;
-                                        distanceCovered: number;
-                                        kiloMeterPerLitre: number;
+                                        distanceCovered: number | null;
+                                        kiloMeterPerLitre: number | null;
                                     }[];
                                 };
                                 status: string;
@@ -1081,12 +929,7 @@ declare const app: Elysia<"", {
                             };
                             201: {
                                 data: {
-                                    name: string;
-                                    id: string;
-                                    dealerId: string;
-                                    nip: string;
-                                    department: string;
-                                    userId: string;
+                                    driverId: string;
                                 };
                                 status: string;
                                 message: string;
@@ -1140,6 +983,10 @@ declare const app: Elysia<"", {
                         status: string;
                         message: string;
                     };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
                     422: {
                         type: "validation";
                         on: string;
@@ -1148,6 +995,10 @@ declare const app: Elysia<"", {
                         found?: unknown;
                         property?: string;
                         expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1176,6 +1027,10 @@ declare const app: Elysia<"", {
                             status: string;
                             message: string;
                         };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
                         422: {
                             type: "validation";
                             on: string;
@@ -1184,6 +1039,10 @@ declare const app: Elysia<"", {
                             found?: unknown;
                             property?: string;
                             expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1207,6 +1066,14 @@ declare const app: Elysia<"", {
                             status: string;
                             message: string;
                         };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
+                        };
                         422: {
                             type: "validation";
                             on: string;
@@ -1215,6 +1082,10 @@ declare const app: Elysia<"", {
                             found?: unknown;
                             property?: string;
                             expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1246,6 +1117,14 @@ declare const app: Elysia<"", {
                             status: string;
                             message: string;
                         };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
+                        };
                         422: {
                             type: "validation";
                             on: string;
@@ -1254,6 +1133,10 @@ declare const app: Elysia<"", {
                             found?: unknown;
                             property?: string;
                             expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1287,6 +1170,14 @@ declare const app: Elysia<"", {
                                 status: string;
                                 message: string;
                             };
+                            401: {
+                                status: "failed";
+                                message: "Unauthorized";
+                            };
+                            404: {
+                                status: "failed";
+                                message: string;
+                            };
                             422: {
                                 type: "validation";
                                 on: string;
@@ -1295,6 +1186,10 @@ declare const app: Elysia<"", {
                                 found?: unknown;
                                 property?: string;
                                 expected?: string;
+                            };
+                            500: {
+                                status: "failed";
+                                message: string;
                             };
                         };
                     };
@@ -1314,25 +1209,32 @@ declare const app: Elysia<"", {
                 headers: {};
                 response: {
                     200: {
-                        readonly status: "success";
-                        readonly message: "User permissions fetched successfully";
-                        readonly data: {
-                            readonly permissions: {
-                                id: number;
+                        data: {
+                            permissions: {
                                 name: string;
+                                id: number;
                                 createdAt: string;
                             }[];
                         };
-                    } & {
-                        readonly status: "success";
-                        readonly message: "User permissions fetched successfully";
-                        readonly data: {
-                            readonly permissions: {
-                                id: number;
-                                name: string;
-                                createdAt: string;
-                            }[];
-                        };
+                        status: string;
+                        message: string;
+                    };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1349,25 +1251,23 @@ declare const app: Elysia<"", {
                     headers: {};
                     response: {
                         200: {
-                            readonly status: "success";
-                            readonly message: "User permissions fetched successfully";
-                            readonly data: {
-                                readonly permissions: {
-                                    id: number;
+                            data: {
+                                permissions: {
                                     name: string;
+                                    id: number;
                                     createdAt: string;
                                 }[];
                             };
-                        } & {
-                            readonly status: "success";
-                            readonly message: "User permissions fetched successfully";
-                            readonly data: {
-                                readonly permissions: {
-                                    id: number;
-                                    name: string;
-                                    createdAt: string;
-                                }[];
-                            };
+                            status: string;
+                            message: string;
+                        };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
                         };
                         422: {
                             type: "validation";
@@ -1377,6 +1277,10 @@ declare const app: Elysia<"", {
                             found?: unknown;
                             property?: string;
                             expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1421,33 +1325,36 @@ declare const app: Elysia<"", {
                 headers: {};
                 response: {
                     200: {
-                        readonly status: "success";
-                        readonly message: "Drivers fetched successfully";
-                        readonly data: {
-                            readonly drivers: {
+                        data: {
+                            drivers: {
+                                name: string | null;
                                 id: string;
-                                nip: string;
-                                name: string;
-                                department: string;
-                                dealer_name: string | null;
                                 area: string | null;
+                                nip: string | null;
+                                department: string | null;
+                                dealer_name: string | null;
                                 total_asset_handled: number;
                             }[];
                         };
-                    } & {
-                        readonly status: "success";
-                        readonly message: "Drivers fetched successfully";
-                        readonly data: {
-                            readonly drivers: {
-                                id: string;
-                                nip: string;
-                                name: string;
-                                department: string;
-                                dealer_name: string | null;
-                                area: string | null;
-                                total_asset_handled: number;
-                            }[];
-                        };
+                        status: string;
+                        message: string;
+                    };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1474,6 +1381,10 @@ declare const app: Elysia<"", {
                         status: string;
                         message: string;
                     };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
                     422: {
                         type: "validation";
                         on: string;
@@ -1482,6 +1393,10 @@ declare const app: Elysia<"", {
                         found?: unknown;
                         property?: string;
                         expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1505,6 +1420,14 @@ declare const app: Elysia<"", {
                             status: string;
                             message: string;
                         };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
+                        };
                         422: {
                             type: "validation";
                             on: string;
@@ -1513,6 +1436,10 @@ declare const app: Elysia<"", {
                             found?: unknown;
                             property?: string;
                             expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1528,13 +1455,17 @@ declare const app: Elysia<"", {
                 query: {};
                 headers: {};
                 response: {
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
                     201: {
-                        readonly status: "success";
-                        readonly message: "Fuel variant created successfully";
-                        readonly data: {
+                        data: {
                             name: string;
                             id: number;
-                        } | undefined;
+                        };
+                        status: string;
+                        message: string;
                     };
                     422: {
                         type: "validation";
@@ -1544,6 +1475,10 @@ declare const app: Elysia<"", {
                         found?: unknown;
                         property?: string;
                         expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1569,6 +1504,14 @@ declare const app: Elysia<"", {
                             status: string;
                             message: string;
                         };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
+                        };
                         422: {
                             type: "validation";
                             on: string;
@@ -1577,6 +1520,10 @@ declare const app: Elysia<"", {
                             found?: unknown;
                             property?: string;
                             expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1600,6 +1547,14 @@ declare const app: Elysia<"", {
                             status: string;
                             message: string;
                         };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
+                        };
                         422: {
                             type: "validation";
                             on: string;
@@ -1608,6 +1563,10 @@ declare const app: Elysia<"", {
                             found?: unknown;
                             property?: string;
                             expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1626,25 +1585,36 @@ declare const app: Elysia<"", {
                 headers: {};
                 response: {
                     200: {
-                        readonly status: "success";
-                        readonly message: "Driver data fetched successfully";
-                        readonly data: {
-                            readonly driver: {
+                        data: {
+                            driver: {
+                                name: string | null;
                                 id: string;
-                                name: string;
-                                department: string;
+                                department: string | null;
                             };
                         };
-                    } & {
-                        readonly status: "success";
-                        readonly message: "Driver data fetched successfully";
-                        readonly data: {
-                            readonly driver: {
-                                id: string;
-                                name: string;
-                                department: string;
-                            };
-                        };
+                        status: string;
+                        message: string;
+                    };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
+                    404: {
+                        status: "failed";
+                        message: string;
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1659,25 +1629,36 @@ declare const app: Elysia<"", {
                     headers: {};
                     response: {
                         200: {
-                            readonly status: "success";
-                            readonly message: "Driver assets fetched successfully";
-                            readonly data: {
-                                readonly assets: {
-                                    id: string;
+                            data: {
+                                assets: {
                                     model: string | null;
+                                    id: string;
                                     license_plate: string | null;
                                 }[];
                             };
-                        } & {
-                            readonly status: "success";
-                            readonly message: "Driver assets fetched successfully";
-                            readonly data: {
-                                readonly assets: {
-                                    id: string;
-                                    model: string | null;
-                                    license_plate: string | null;
-                                }[];
-                            };
+                            status: string;
+                            message: string;
+                        };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
                         };
                     };
                 };
@@ -1699,49 +1680,31 @@ declare const app: Elysia<"", {
                 headers: {};
                 response: {
                     200: {
-                        readonly status: "success";
-                        readonly message: "Transactions fetched successfully";
-                        readonly data: {
+                        data: {
                             transactions: {
                                 id: string;
-                                assetPlate: string | null;
-                                modelName: string | null;
-                                driverName: string;
                                 transactionTime: string;
-                                lastKilometer: number;
-                                refillKilometer: number;
-                                litresPurchased: number;
-                                kiloMeterPerLitre: number;
+                                driverName: string;
+                                modelName: string | null;
                                 transactionTotal: number;
+                                kiloMeterPerLitre: number;
+                                assetPlate: string | null;
+                                lastKilometer: number;
+                                litresPurchased: number;
+                                refillKilometer: number;
                             }[];
                             pagination: {
-                                page: number;
                                 limit: number;
+                                page: number;
                                 total: number;
                             };
                         };
-                    } & {
-                        readonly status: "success";
-                        readonly message: "Transactions fetched successfully";
-                        readonly data: {
-                            transactions: {
-                                id: string;
-                                assetPlate: string | null;
-                                modelName: string | null;
-                                driverName: string;
-                                transactionTime: string;
-                                lastKilometer: number;
-                                refillKilometer: number;
-                                litresPurchased: number;
-                                kiloMeterPerLitre: number;
-                                transactionTotal: number;
-                            }[];
-                            pagination: {
-                                page: number;
-                                limit: number;
-                                total: number;
-                            };
-                        };
+                        status: string;
+                        message: string;
+                    };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
                     };
                     422: {
                         type: "validation";
@@ -1751,6 +1714,10 @@ declare const app: Elysia<"", {
                         found?: unknown;
                         property?: string;
                         expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1773,12 +1740,16 @@ declare const app: Elysia<"", {
                 query: {};
                 headers: {};
                 response: {
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
                     201: {
-                        readonly status: "success";
-                        readonly message: "Transaction created successfully";
-                        readonly data: {
+                        data: {
                             transaction_id: string;
                         };
+                        status: string;
+                        message: string;
                     };
                     422: {
                         type: "validation";
@@ -1789,11 +1760,49 @@ declare const app: Elysia<"", {
                         property?: string;
                         expected?: string;
                     };
+                    500: {
+                        status: "failed";
+                        message: string;
+                    };
                 };
             };
         };
     };
-}) & {}, {
+}) & {
+    public: {
+        images: {
+            ":folder": {
+                ":filename": {
+                    get: {
+                        body: {};
+                        params: {
+                            filename: string;
+                            folder: string;
+                        };
+                        query: {};
+                        headers: {};
+                        response: {
+                            200: Bun.BunFile;
+                            403: {
+                                readonly status: "failed";
+                                readonly message: "Forbidden";
+                            };
+                            422: {
+                                type: "validation";
+                                on: string;
+                                summary?: string;
+                                message?: string;
+                                found?: unknown;
+                                property?: string;
+                                expected?: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    };
+}, {
     derive: {};
     resolve: {};
     schema: {};

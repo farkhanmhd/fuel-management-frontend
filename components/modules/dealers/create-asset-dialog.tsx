@@ -356,7 +356,7 @@ export function CreateAssetDialog() {
             form="create-asset-form"
             type="submit"
           >
-            {isSubmitting ? "Menyimpan..." : "Simpan Aset"}
+            {isSubmitting ? "Menambah Aset..." : "Tambah Asset"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -277,7 +277,7 @@ export function CreateDriverDialog() {
             form="create-driver-form"
             type="submit"
           >
-            {isSubmitting ? "Menyimpan..." : "Simpan Driver"}
+            {isSubmitting ? "Menambah..." : "Tambah Driver"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

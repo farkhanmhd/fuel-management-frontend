@@ -16,7 +16,7 @@ const DealerCard = async ({ params }: Props) => {
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-1 space-y-3 lg:grid-cols-3">
+      <CardContent className="grid grid-cols-1 lg:grid-cols-3">
         <div className="flex flex-col gap-1">
           <p className="text-muted-foreground text-sm">Kode</p>
           <p className="font-medium font-mono">{dealer.code}</p>

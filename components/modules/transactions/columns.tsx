@@ -75,14 +75,14 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     accessorKey: "lastKilometer",
     header: "KM Sebelum",
     cell: ({ row }) => {
-      return `${row.original.lastKilometer.toLocaleString("id-ID")} km`;
+      return `${row.original.lastKilometer} km`;
     },
   },
   {
     accessorKey: "refillKilometer",
     header: "KM Isi",
     cell: ({ row }) => {
-      return `${row.original.refillKilometer.toLocaleString("id-ID")} km`;
+      return `${row.original.refillKilometer} km`;
     },
   },
   {
@@ -91,7 +91,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       const distance =
         row.original.refillKilometer - row.original.lastKilometer;
-      return `${distance.toLocaleString("id-ID")} km`;
+      return `${distance} km`;
     },
   },
   {

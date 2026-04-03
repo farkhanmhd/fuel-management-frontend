@@ -46,31 +46,54 @@ export const dealerTransactionColumns: ColumnDef<DealerTransaction>[] = [
     header: "Model",
   },
   {
-    accessorKey: "distanceCovered",
-    header: "Jarak Tempuh",
+    accessorKey: "currentKilometer",
+    header: "KM Isi",
     cell: ({ row }) => {
-      return row.original.distanceCovered.toLocaleString("id-ID");
+      return row.original.currentKilometer.toLocaleString("id-ID");
     },
   },
   {
-    accessorKey: "litrePurchased",
-    header: "Liter",
+    accessorKey: "distanceCovered",
+    header: "Jarak Tempuh",
     cell: ({ row }) => {
-      return row.original.litrePurchased.toFixed(2);
+      const distance = row.original.distanceCovered;
+      if (distance === null || distance === undefined) {
+        return "Menunggu Transaksi Selanjutnya";
+      }
+      return `${distance} km`;
     },
   },
   {
     accessorKey: "transactionTotal",
-    header: "Total",
+    header: "Total Transaksi",
     cell: ({ row }) => {
       return formatIDR(row.original.transactionTotal);
+    },
+  },
+  {
+    accessorKey: "pricePerLitre",
+    header: "Harga / Liter",
+    cell: ({ row }) => {
+      return formatIDR(row.original.pricePerLitre);
+    },
+  },
+
+  {
+    accessorKey: "litrePurchased",
+    header: "Liter Isi",
+    cell: ({ row }) => {
+      return row.original.litrePurchased.toFixed(2);
     },
   },
   {
     accessorKey: "kiloMeterPerLitre",
     header: "KM/L",
     cell: ({ row }) => {
-      return row.original.kiloMeterPerLitre.toFixed(2);
+      const kmPerLitre = row.original.kiloMeterPerLitre;
+      if (kmPerLitre === null || kmPerLitre === undefined) {
+        return "Menunggu Transaksi Selanjutnya";
+      }
+      return `${kmPerLitre} km/L`;
     },
   },
   {

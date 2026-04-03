@@ -11,8 +11,8 @@ export const createDriverSchema = z.object({
 export type CreateDriverSchema = z.infer<typeof createDriverSchema>;
 
 export const createAssetSchema = z.object({
-  model: z.string().min(1, "Model is required"),
-  licensePlate: z.string().min(1, "License plate is required"),
+  model: z.string().trim().min(1, "Model is required"),
+  licensePlate: z.string().trim().min(1, "License plate is required"),
   year: z
     .number()
     .min(1900, "Year must be valid")

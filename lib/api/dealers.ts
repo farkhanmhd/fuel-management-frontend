@@ -53,8 +53,8 @@ const fetchDealerTransactions = async (token: string, dealerId: string) => {
         litrePurchased: number;
         previousKilometer: number;
         currentKilometer: number;
-        distanceCovered: number;
-        kiloMeterPerLitre: number;
+        distanceCovered: number | null;
+        kiloMeterPerLitre: number | null;
       }[];
     };
   }>(`/api/dealers/${dealerId}/transactions`, {
@@ -120,8 +120,6 @@ const addDriver = async (
       },
     }
   );
-
-  console.log(response);
 
   return response.data.data.driverId;
 };

@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { dealerAssetColumns } from "@/components/modules/dealers/asset-columns";
+import { CreateAssetDialog } from "@/components/modules/dealers/create-asset-dialog";
 import { TableProvider } from "@/components/table/context";
 import { DataTableLayout } from "@/components/table/data-table-layout";
 import { DataTableLoader } from "@/components/table/data-table-loader";
 import { DataTablePagination } from "@/components/table/data-table-pagination";
-import { CreateAssetDialog } from "@/components/modules/dealers/create-asset-dialog";
 import { DealersApi } from "@/lib/api/dealers";
 
 type Props = {
