@@ -7,6 +7,7 @@ import { useTable } from "./state";
 interface TableContextType<T extends { id: string }> {
   columns: ColumnDef<T, unknown>[];
   globalFilter: string;
+  internalData: T[];
   isManualPagination: boolean;
   selectableRows?: boolean;
   setGlobalFilter: (
@@ -36,6 +37,7 @@ export function TableProvider<T extends { id: string }>({
   "use no memo";
   const {
     table,
+    internalData,
     globalFilter,
     setGlobalFilter,
     isManualPagination,
@@ -48,6 +50,7 @@ export function TableProvider<T extends { id: string }>({
 
   const value: TableContextType<T> = {
     table,
+    internalData,
     globalFilter,
     setGlobalFilter,
     columns,

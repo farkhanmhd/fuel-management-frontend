@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { changePasswordAction } from "@/lib/actions/actions";
+import { changePasswordAction } from "@/lib/actions/auth";
 import { changePasswordSchema } from "@/lib/schemas/account";
 
 const passwordFields = [

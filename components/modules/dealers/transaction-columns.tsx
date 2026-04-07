@@ -71,6 +71,10 @@ export const dealerTransactionColumns: ColumnDef<DealerTransaction>[] = [
     },
   },
   {
+    accessorKey: "productVariant",
+    header: "Produk",
+  },
+  {
     accessorKey: "pricePerLitre",
     header: "Harga / Liter",
     cell: ({ row }) => {

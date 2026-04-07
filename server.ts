@@ -57,9 +57,6 @@ declare const app: Elysia<"", {
     };
     error: {};
 } & {
-    typebox: {};
-    error: {};
-} & {
     typebox: {
         readonly updatePasswordSchema: import("@sinclair/typebox").TObject<{
             current_password: import("@sinclair/typebox").TString;
@@ -81,7 +78,12 @@ declare const app: Elysia<"", {
     };
     error: {};
 } & {
-    typebox: {};
+    typebox: {
+        readonly driverTransactionQuerySchema: import("@sinclair/typebox").TObject<{
+            page: import("@sinclair/typebox").TNumber;
+            limit: import("@sinclair/typebox").TNumber;
+        }>;
+    };
     error: {};
 } & {
     typebox: {
@@ -1199,9 +1201,9 @@ declare const app: Elysia<"", {
     };
 } & {
     api: {
-        "user-permissions": {};
+        permissions: {};
     } & {
-        "user-permissions": {
+        permissions: {
             get: {
                 body: {};
                 params: {};
@@ -1213,7 +1215,6 @@ declare const app: Elysia<"", {
                             permissions: {
                                 name: string;
                                 id: number;
-                                createdAt: string;
                             }[];
                         };
                         status: string;
@@ -1240,48 +1241,38 @@ declare const app: Elysia<"", {
             };
         };
     } & {
-        "user-permissions": {
-            ":userId": {
-                get: {
-                    body: {};
-                    params: {
-                        userId: string;
+        permissions: {
+            post: {
+                body: {
+                    permission: string;
+                };
+                params: {};
+                query: {};
+                headers: {};
+                response: {
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
                     };
-                    query: {};
-                    headers: {};
-                    response: {
-                        200: {
-                            data: {
-                                permissions: {
-                                    name: string;
-                                    id: number;
-                                    createdAt: string;
-                                }[];
-                            };
-                            status: string;
-                            message: string;
+                    201: {
+                        data: {
+                            id: number;
                         };
-                        401: {
-                            status: "failed";
-                            message: "Unauthorized";
-                        };
-                        404: {
-                            status: "failed";
-                            message: string;
-                        };
-                        422: {
-                            type: "validation";
-                            on: string;
-                            summary?: string;
-                            message?: string;
-                            found?: unknown;
-                            property?: string;
-                            expected?: string;
-                        };
-                        500: {
-                            status: "failed";
-                            message: string;
-                        };
+                        status: string;
+                        message: string;
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
                     };
                 };
             };
@@ -1646,6 +1637,65 @@ declare const app: Elysia<"", {
                         404: {
                             status: "failed";
                             message: string;
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+    } & {
+        driver: {
+            transactions: {
+                get: {
+                    body: {};
+                    params: {};
+                    query: {
+                        limit: number;
+                        page: number;
+                    };
+                    headers: {};
+                    response: {
+                        200: {
+                            data: {
+                                transactions: {
+                                    id: string;
+                                    transactionTime: string;
+                                    driverName: string;
+                                    modelName: string | null;
+                                    transactionTotal: number;
+                                    kiloMeterPerLitre: number;
+                                    assetPlate: string | null;
+                                    lastKilometer: number;
+                                    litresPurchased: number;
+                                    refillKilometer: number;
+                                    gasStationPhoto: string | null;
+                                    odometerPhoto: string | null;
+                                    receiptPhoto: string | null;
+                                }[];
+                                pagination: {
+                                    limit: number;
+                                    page: number;
+                                    total: number;
+                                };
+                            };
+                            status: string;
+                            message: string;
+                        };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
                         };
                         422: {
                             type: "validation";

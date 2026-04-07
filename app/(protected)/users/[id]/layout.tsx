@@ -3,12 +3,13 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 
 interface Props {
-  children: React.ReactNode;
+  permissions: React.ReactNode;
+  userDetail: React.ReactNode;
 }
 
-const UserDetailLayout = ({ children }: Props) => {
+const UserDetailLayout = ({ userDetail, permissions }: Props) => {
   return (
-    <div className="flex flex-col gap-4 px-1">
+    <div className="mx-auto flex max-w-3xl flex-col gap-4 px-1">
       <div className="flex items-center gap-2">
         <Link
           className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
@@ -18,7 +19,10 @@ const UserDetailLayout = ({ children }: Props) => {
           <span>Kembali</span>
         </Link>
       </div>
-      <div className="flex flex-col gap-4">{children}</div>
+      <div className="flex flex-col gap-6">
+        {userDetail}
+        {permissions}
+      </div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  AccessIcon,
   Building,
   Car,
   ChartCandleIcon,
@@ -46,6 +47,11 @@ const data: NavLinkProp[] = [
     title: "Driver",
     url: "/drivers",
     icon: <HugeiconsIcon icon={StreeringWheelIcon} strokeWidth={2} />,
+  },
+  {
+    title: "Permissions",
+    url: "/permissions",
+    icon: <HugeiconsIcon icon={AccessIcon} strokeWidth={2} />,
   },
   {
     title: "User",

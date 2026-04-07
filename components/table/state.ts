@@ -86,6 +86,7 @@ export const useTable = <TData extends { id: string }, TValue>({
 
   return {
     table,
+    internalData,
     setInternalData,
     globalFilter,
     setGlobalFilter,

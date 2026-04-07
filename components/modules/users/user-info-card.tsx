@@ -128,7 +128,7 @@ export function UserInfoCard({ user }: UserInfoCardProps) {
               form.handleSubmit();
             }}
           >
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {fields.map(({ name, label, mono, icon }) => (
                 <form.Field
                   children={(field) => {
@@ -201,7 +201,7 @@ export function UserInfoCard({ user }: UserInfoCardProps) {
             </div>
           </form>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {fields.map(({ name, label, mono, icon }) => (
               <div
                 className="group flex items-start gap-3 rounded-xl border bg-muted/30 p-3 transition-colors hover:bg-muted/60"
