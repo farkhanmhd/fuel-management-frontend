@@ -1,7 +1,7 @@
 import { withAuth } from "../auth/utils";
 import { api } from "../axios";
 import type { elysia } from "../elysia";
-import type { AddPermissionSchema } from "../schemas/permissions";
+import type { PermissionSchema } from "../schemas/permissions";
 
 export type Permission = NonNullable<
   NonNullable<
@@ -27,10 +27,10 @@ export abstract class PermissionsApi {
     return { data };
   }
 
-  static async addPermission(body: AddPermissionSchema) {
+  static async addPermission(body: PermissionSchema) {
     const { data } = await withAuth(async (token) => {
-      const response = await api.post<{ data: { id: number } }>(
-        "/api/user-permissions",
+      const response = await api.post<{ data: { id: string } }>(
+        "/api/permissions",
         body,
         {
           headers: {

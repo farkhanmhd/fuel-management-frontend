@@ -1,16 +1,20 @@
 "use client";
 
+import { Edit } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
+import { useAlertDialog } from "@/components/providers/alert-dialog-provider";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import type { Permission } from "@/lib/api/permissions";
 
-export type PermissionColumn = {
-  id: number;
-  name: string;
-};
+interface PermissionColumn extends Omit<Permission, "id"> {
+  id: string;
+}
 
 const ACTION_BADGE_CLASS: Record<
-  string,
+  Permission["type"],
   {
     variant: "default" | "secondary" | "outline" | "destructive";
     className: string;
@@ -43,38 +47,67 @@ export const columns: ColumnDef<PermissionColumn>[] = [
     ),
   },
   {
-    accessorKey: "name",
+    accessorKey: "type",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Permission" />
+      <DataTableColumnHeader column={column} title="Type" />
     ),
     cell: ({ row }) => {
-      const name: string = row.getValue("name");
-      const [action, resource, scope] = name.split(":");
-      const badge = ACTION_BADGE_CLASS[action] ?? {
-        variant: "outline" as const,
-        className: "",
-      };
+      const type = row.getValue<Permission["type"]>("type");
+      const badge = ACTION_BADGE_CLASS[type];
 
       return (
-        <div className="flex items-center gap-2">
-          <Badge
-            className={`shrink-0 font-bold uppercase ${badge.className}`}
-            variant={badge.variant}
-          >
-            {action}
-          </Badge>
-          <span className="font-mono text-foreground uppercase">
-            {resource}
-          </span>
-          {scope && (
-            <>
-              <span className="text-muted-foreground">/</span>
-              <span className="font-mono text-muted-foreground uppercase">
-                {scope}
-              </span>
-            </>
-          )}
-        </div>
+        <Badge
+          className={`font-bold uppercase ${badge.className}`}
+          variant={badge.variant}
+        >
+          {type}
+        </Badge>
+      );
+    },
+    filterFn: (row, id, value: string[]) => value.includes(row.getValue(id)),
+  },
+  {
+    accessorKey: "resource",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Resource" />
+    ),
+    cell: ({ row }) => (
+      <span className="font-mono text-sm uppercase">
+        {row.getValue("resource")}
+      </span>
+    ),
+    filterFn: (row, id, value: string[]) => value.includes(row.getValue(id)),
+  },
+  {
+    accessorKey: "note",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Note" />
+    ),
+    cell: ({ row }) => {
+      const note: string | null = row.getValue("note");
+      return note ? (
+        <span className="text-foreground text-sm">{note}</span>
+      ) : (
+        <span className="text-muted-foreground">—</span>
+      );
+    },
+  },
+  {
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => {
+      const { onOpenChange, setData } = useAlertDialog();
+
+      return (
+        <Button
+          onClick={() => {
+            setData(row.original);
+            onOpenChange(true);
+          }}
+          variant="ghost"
+        >
+          <HugeiconsIcon icon={Edit} strokeWidth={2} />
+        </Button>
       );
     },
   },

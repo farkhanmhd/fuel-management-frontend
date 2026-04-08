@@ -1,12 +1,9 @@
-// add-permission-dialog.tsx
 "use client";
 
-import { Plus } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { toast } from "sonner";
+import { useAlertDialog } from "@/components/providers/alert-dialog-provider";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -15,7 +12,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -23,32 +19,26 @@ import { clientApi } from "@/lib/axios";
 import type { PermissionSchema } from "@/lib/schemas/permissions";
 import { PermissionForm } from "./permission-form";
 
-const addPermission = async (body: PermissionSchema) => {
-  const response = await clientApi.post<{ data: { id: string } }>(
-    "/api/permissions",
+const updatePermission = async (data: PermissionSchema) => {
+  const { id, ...body } = data;
+  const response = await clientApi.patch<{ data: { id: string } }>(
+    `/api/permissions/${id}`,
     body
   );
   return response.data.data;
 };
 
-const defaultValues: PermissionSchema = {
-  type: "read",
-  resource: "",
-  note: "",
-};
-
-export function AddPermissionDialog() {
-  const [open, setOpen] = useState(false);
+export function UpdatePermissionDialog() {
+  const { open, onOpenChange, data } = useAlertDialog<PermissionSchema>();
   const { refresh } = useRouter();
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: addPermission,
+    mutationFn: updatePermission,
     onSuccess: (_, variables) => {
-      console.log(variables);
       toast.success("Permission berhasil ditambahkan", {
         description: `Permission "${variables.type} - ${variables.resource}" telah dibuat.`,
       });
-      setOpen(false);
+      onOpenChange(false);
       refresh();
     },
     onError: (error: Error) => {
@@ -61,14 +51,7 @@ export function AddPermissionDialog() {
   });
 
   return (
-    <AlertDialog onOpenChange={setOpen} open={open}>
-      <AlertDialogTrigger asChild>
-        <Button>
-          <HugeiconsIcon icon={Plus} strokeWidth={2} />
-          Permission
-        </Button>
-      </AlertDialogTrigger>
-
+    <AlertDialog onOpenChange={onOpenChange} open={open}>
       <AlertDialogContent className="sm:max-w-md">
         <AlertDialogHeader>
           <AlertDialogTitle>Tambah Permission Baru</AlertDialogTitle>
@@ -83,7 +66,7 @@ export function AddPermissionDialog() {
           disabled={isPending}
           key={String(open)}
           onSubmitAction={({ value }) => mutateAsync(value)}
-          permission={defaultValues}
+          permission={data}
         />
 
         <AlertDialogFooter>

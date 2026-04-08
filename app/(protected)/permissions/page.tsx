@@ -3,12 +3,8 @@ import { PermissionsApi } from "@/lib/api/permissions";
 
 const DealersPage = async () => {
   const { data } = await PermissionsApi.getAllPermissions();
-  const permissions = data?.map((permission) => ({
-    id: String(permission.id),
-    name: permission.name,
-  }));
 
-  return <DataTableLoader data={permissions || []} />;
+  return <DataTableLoader data={data || []} />;
 };
 
 export default DealersPage;

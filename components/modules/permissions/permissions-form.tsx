@@ -22,14 +22,14 @@ const ACTION_ORDER = ["create", "read", "update", "delete"];
 
 const sortByAction = (perms: Permission[]) =>
   [...perms].sort((a, b) => {
-    const actionA = a.name.split(":")[0];
-    const actionB = b.name.split(":")[0];
+    const actionA = a.type;
+    const actionB = b.type;
     const ai = ACTION_ORDER.indexOf(actionA);
     const bi = ACTION_ORDER.indexOf(actionB);
     if (ai !== -1 && bi !== -1) {
       return ai - bi;
     }
-    return a.name.localeCompare(b.name);
+    return actionA.localeCompare(actionB);
   });
 
 const ACTION_BADGE_CLASS: Record<
@@ -58,7 +58,7 @@ export function PermissionsForm({ grouped }: Props) {
 
   const form = useForm({
     defaultValues: {
-      permissionIds: [] as number[],
+      permissionIds: [] as string[],
     },
     onSubmit: async ({ value }) => {
       try {
@@ -83,7 +83,7 @@ export function PermissionsForm({ grouped }: Props) {
         {(field) => {
           const selected = field.state.value;
 
-          const toggle = (id: number) => {
+          const toggle = (id: string) => {
             field.handleChange(
               selected.includes(id)
                 ? selected.filter((v) => v !== id)
@@ -133,19 +133,20 @@ export function PermissionsForm({ grouped }: Props) {
 
                   return (
                     <AccordionItem
-                      className="rounded-md border px-1"
+                      className="relative rounded-md border px-1"
                       key={group}
                       value={group}
                     >
-                      <AccordionTrigger className="px-3 py-3 hover:no-underline">
-                        <div className="flex items-center gap-2.5">
-                          <Checkbox
-                            checked={allChecked}
-                            data-indeterminate={someChecked}
-                            onCheckedChange={() => toggleGroup(sorted)}
-                            onClick={(e) => e.stopPropagation()}
-                          />
-                          <span className="font-semibold text-muted-foreground uppercase tracking-widest">
+                      <Checkbox
+                        checked={allChecked}
+                        className="absolute top-3.75 left-4 z-50"
+                        data-indeterminate={someChecked}
+                        onCheckedChange={() => toggleGroup(sorted)}
+                      />
+                      {/* 2. The Trigger now only contains the text/labels */}
+                      <AccordionTrigger className="cursor-pointer py-3 pl-12">
+                        <div className="flex w-full items-center gap-2.5">
+                          <span className="text-left font-semibold text-muted-foreground uppercase tracking-widest">
                             {group}
                           </span>
                           <Badge className="uppercase" variant="secondary">
@@ -157,8 +158,8 @@ export function PermissionsForm({ grouped }: Props) {
                       <AccordionContent className="pb-3">
                         <div className="grid grid-cols-1 gap-1.5 px-3 sm:grid-cols-2 lg:grid-cols-3">
                           {sorted.map((perm) => {
-                            const action = perm.name.split(":")[0];
-                            const label = perm.name.replace(`${action}:`, "");
+                            const action = perm.type;
+                            const label = perm.resource;
                             const badge = ACTION_BADGE_CLASS[action] ?? {
                               variant: "outline" as const,
                               className: "",

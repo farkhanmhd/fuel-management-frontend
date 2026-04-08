@@ -1213,8 +1213,10 @@ declare const app: Elysia<"", {
                     200: {
                         data: {
                             permissions: {
-                                name: string;
-                                id: number;
+                                note?: string | null | undefined;
+                                type: "create" | "update" | "read" | "delete";
+                                id: string;
+                                resource: string;
                             }[];
                         };
                         status: string;
@@ -1244,7 +1246,9 @@ declare const app: Elysia<"", {
         permissions: {
             post: {
                 body: {
-                    permission: string;
+                    note?: string | null | undefined;
+                    type: "create" | "update" | "read" | "delete";
+                    resource: string;
                 };
                 params: {};
                 query: {};
