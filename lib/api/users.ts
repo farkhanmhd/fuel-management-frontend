@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { withAuth } from "../auth/utils";
-import { api } from "../axios";
+import { api } from "../axios/server";
 import type { elysia } from "../elysia";
 import type { AddUserSchema, UpdateUserDataSchema } from "../schemas/users";
 import type { BaseAPIResponse } from "./utils";
@@ -25,8 +25,14 @@ type UserList = NonNullable<GetUsersResponse>["data"]["users"][number];
 export interface UserListData extends UserList {
   id: string;
 }
-
 export type UserData = NonNullable<GetUserByIdResponse>["data"]["user"];
+
+export type UserPermissionsResponse = NonNullable<
+  Awaited<ReturnType<UsersParamReturn["permissions"]["get"]>>["data"]
+>;
+
+export type UserPermission =
+  UserPermissionsResponse["data"]["permissions"][number];
 
 interface UpdateUserDataParams {
   body: UpdateUserDataSchema;
@@ -125,5 +131,13 @@ export abstract class UsersApi {
     });
 
     return result;
+  }
+
+  static async getUserPermissions(userId: string) {
+    const { data } = await api.get<UserPermissionsResponse>(
+      `/api/users/${userId}/permissions`
+    );
+
+    return data.data.permissions;
   }
 }

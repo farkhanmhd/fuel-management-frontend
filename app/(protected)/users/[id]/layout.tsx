@@ -9,7 +9,7 @@ interface Props {
 
 const UserDetailLayout = ({ userDetail, permissions }: Props) => {
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-4 px-1">
+    <div className="mx-auto flex max-w-5xl flex-col gap-4 px-1">
       <div className="flex items-center gap-2">
         <Link
           className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"

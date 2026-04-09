@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import type { LoginSchema } from "@/components/auth/login-form";
-import { authAxios } from "../axios";
+import { authAxios } from "@/lib/auth";
 import { type AuthApiResponse, withAuth } from "./utils";
 
 interface LoginData {

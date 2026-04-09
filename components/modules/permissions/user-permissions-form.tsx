@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm, useStore } from "@tanstack/react-form";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   Accordion,
@@ -13,9 +14,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import type { Permission } from "@/lib/api/permissions";
+import type { UserPermission } from "@/lib/api/users";
+import { clientApi } from "@/lib/axios/client";
 
 type Props = {
-  grouped: [string, Permission[]][];
+  permissions: Permission[] | null;
+  userPermissions: UserPermission[];
 };
 
 const ACTION_ORDER = ["create", "read", "update", "delete"];
@@ -53,17 +57,68 @@ const ACTION_BADGE_CLASS: Record<
   delete: { variant: "destructive", className: "" },
 };
 
-export function PermissionsForm({ grouped }: Props) {
+const groupPermissions = (permissions: Permission[]) => {
+  const groups: Record<string, Permission[]> = {};
+
+  for (const perm of permissions) {
+    let groupName = perm.resource;
+
+    // Check if the permission belongs to the "DEALER" category via notes
+    if (perm.note?.startsWith("DEALER")) {
+      groupName = "dealer";
+    }
+
+    if (!groups[groupName]) {
+      groups[groupName] = [];
+    }
+    groups[groupName].push(perm);
+  }
+
+  return Object.entries(groups).sort(([a], [b]) => {
+    // Keep 'dashboard' at the top
+    if (a === "dashboard") {
+      return -1;
+    }
+    if (b === "dashboard") {
+      return 1;
+    }
+
+    // Optional: Keep 'dealer' in a specific spot, e.g., right after dashboard
+    if (a === "dealer") {
+      return -1;
+    }
+    if (b === "dealer") {
+      return 1;
+    }
+
+    return a.localeCompare(b);
+  });
+};
+
+export function UserPermissionsForm({ permissions, userPermissions }: Props) {
+  const grouped = groupPermissions(permissions ?? []);
   const totalAll = grouped.reduce((acc, [, p]) => acc + p.length, 0);
+  const params = useParams();
+  const { refresh } = useRouter();
+
+  const matchedPermissionIds = (permissions ?? [])
+    .filter((p) =>
+      userPermissions.some((up) => String(up.permissionId) === p.id)
+    )
+    .map((p) => p.id);
 
   const form = useForm({
     defaultValues: {
-      permissionIds: [] as string[],
+      permissionIds: matchedPermissionIds,
     },
     onSubmit: async ({ value }) => {
       try {
-        await new Promise((r) => setTimeout(r, 800));
+        await clientApi.patch(`/api/users/${params.id}/permissions`, {
+          permissionIds: value.permissionIds.map((perm) => Number(perm)),
+        });
+
         toast.success(`${value.permissionIds.length} permission(s) saved`);
+        refresh();
       } catch {
         toast.error("Failed to save permissions");
       }
@@ -156,10 +211,10 @@ export function PermissionsForm({ grouped }: Props) {
                       </AccordionTrigger>
 
                       <AccordionContent className="pb-3">
-                        <div className="grid grid-cols-1 gap-1.5 px-3 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-1.5 px-3 sm:grid-cols-2">
                           {sorted.map((perm) => {
                             const action = perm.type;
-                            const label = perm.resource;
+                            const label = `${perm.resource} ${perm.note ?? ""}`;
                             const badge = ACTION_BADGE_CLASS[action] ?? {
                               variant: "outline" as const,
                               className: "",

@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { DealerAsset, DealerDriver } from "@/lib/api/dealers";
-import { clientApi } from "@/lib/axios";
+import { clientApi } from "@/lib/axios/client";
 
 type AssignDriverSchema = {
   driverId: string;
@@ -157,7 +157,7 @@ export function AssignDriverDialog() {
                   <AlertDialogTitle>
                     Assign Driver - {data.modelName}
                   </AlertDialogTitle>
-                  <AlertDialogDescription className="mt-0.5 text-xs">
+                  <AlertDialogDescription className="mt-0.5">
                     {data.driverName
                       ? `Saat ini ditangani oleh ${data.driverName}. Pilih driver baru untuk menggantikannya.`
                       : `${data.modelName} (${data.licensePlate}) belum memiliki driver. Pilih driver untuk menetapkannya.`}

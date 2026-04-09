@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import { CreateDriverDialog } from "@/components/modules/dealers/create-driver-dialog";
 import { dealerDriverColumns } from "@/components/modules/dealers/driver-columns";
 import { TableProvider } from "@/components/table/context";
@@ -15,10 +14,6 @@ const DriversPage = async ({ params }: Props) => {
   const { id } = await params;
   const { data: drivers } = await DealersApi.getDealerDrivers(id);
 
-  if (!drivers) {
-    notFound();
-  }
-
   return (
     <div className="my-3 space-y-3">
       <div className="flex justify-end">
@@ -27,7 +22,7 @@ const DriversPage = async ({ params }: Props) => {
       <div className="space-y-3">
         <TableProvider columns={dealerDriverColumns}>
           <DataTableLayout fullWidth>
-            <DataTableLoader data={drivers} />
+            <DataTableLoader data={drivers || []} />
           </DataTableLayout>
           <DataTablePagination />
         </TableProvider>

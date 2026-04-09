@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import { authAxios } from "../auth";
 import { withAuth } from "../auth/utils";
-import { api, authAxios } from "../axios";
+import { api } from "../axios/server";
 import type { ChangePasswordSchema } from "../schemas/account";
 import type { UserData } from "./users";
 import type { BaseAPIResponse } from "./utils";

@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { clientApi } from "@/lib/axios";
+import { clientApi } from "@/lib/axios/client";
 import type { PermissionSchema } from "@/lib/schemas/permissions";
 import { PermissionForm } from "./permission-form";
 

@@ -1,4 +1,9 @@
-import { authAxios } from "../axios";
+import axios from "axios";
+
+export const authAxios = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL,
+  headers: { "Content-Type": "application/json" },
+});
 
 export const verifyToken = async (token: string): Promise<boolean> => {
   try {

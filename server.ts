@@ -107,9 +107,6 @@ declare const app: Elysia<"", {
 }) & {
     typebox: {};
     error: {};
-} & {
-    typebox: {};
-    error: {};
 }, ({
     schema: {};
     standaloneSchema: {};
@@ -1198,6 +1195,101 @@ declare const app: Elysia<"", {
                 };
             };
         };
+    } & {
+        users: {
+            ":userId": {
+                permissions: {
+                    get: {
+                        body: {};
+                        params: {
+                            userId: string;
+                        };
+                        query: {};
+                        headers: {};
+                        response: {
+                            200: {
+                                data: {
+                                    permissions: {
+                                        note?: string | null | undefined;
+                                        type: "create" | "update" | "read" | "delete";
+                                        id: string;
+                                        permissionId: number;
+                                        resource: string;
+                                    }[];
+                                };
+                                status: string;
+                                message: string;
+                            };
+                            401: {
+                                status: "failed";
+                                message: "Unauthorized";
+                            };
+                            404: {
+                                status: "failed";
+                                message: string;
+                            };
+                            422: {
+                                type: "validation";
+                                on: string;
+                                summary?: string;
+                                message?: string;
+                                found?: unknown;
+                                property?: string;
+                                expected?: string;
+                            };
+                            500: {
+                                status: "failed";
+                                message: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    } & {
+        users: {
+            ":userId": {
+                permissions: {
+                    patch: {
+                        body: {
+                            permissionIds: number[];
+                        };
+                        params: {
+                            userId: string;
+                        };
+                        query: {};
+                        headers: {};
+                        response: {
+                            200: {
+                                status: string;
+                                message: string;
+                            };
+                            401: {
+                                status: "failed";
+                                message: "Unauthorized";
+                            };
+                            404: {
+                                status: "failed";
+                                message: string;
+                            };
+                            422: {
+                                type: "validation";
+                                on: string;
+                                summary?: string;
+                                message?: string;
+                                found?: unknown;
+                                property?: string;
+                                expected?: string;
+                            };
+                            500: {
+                                status: "failed";
+                                message: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
     };
 } & {
     api: {
@@ -1277,6 +1369,53 @@ declare const app: Elysia<"", {
                     500: {
                         status: "failed";
                         message: string;
+                    };
+                };
+            };
+        };
+    } & {
+        permissions: {
+            ":permissionId": {
+                patch: {
+                    body: {
+                        note?: string | null | undefined;
+                        type: "create" | "update" | "read" | "delete";
+                        resource: string;
+                    };
+                    params: {
+                        permissionId: number;
+                    };
+                    query: {};
+                    headers: {};
+                    response: {
+                        200: {
+                            data: {
+                                id: number;
+                            };
+                            status: string;
+                            message: string;
+                        };
+                        401: {
+                            status: "failed";
+                            message: "Unauthorized";
+                        };
+                        404: {
+                            status: "failed";
+                            message: string;
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                        500: {
+                            status: "failed";
+                            message: string;
+                        };
                     };
                 };
             };
@@ -1677,13 +1816,16 @@ declare const app: Elysia<"", {
                                     id: string;
                                     transactionTime: string;
                                     driverName: string;
+                                    licensePlate: string | null;
                                     modelName: string | null;
+                                    productVariant: string;
                                     transactionTotal: number;
-                                    kiloMeterPerLitre: number;
-                                    assetPlate: string | null;
-                                    lastKilometer: number;
-                                    litresPurchased: number;
-                                    refillKilometer: number;
+                                    pricePerLitre: number;
+                                    litrePurchased: number;
+                                    previousKilometer: number | null;
+                                    currentKilometer: number | null;
+                                    distanceCovered: number | null;
+                                    kiloMeterPerLitre: number | null;
                                     gasStationPhoto: string | null;
                                     odometerPhoto: string | null;
                                     receiptPhoto: string | null;
@@ -1822,41 +1964,7 @@ declare const app: Elysia<"", {
             };
         };
     };
-}) & {
-    public: {
-        images: {
-            ":folder": {
-                ":filename": {
-                    get: {
-                        body: {};
-                        params: {
-                            filename: string;
-                            folder: string;
-                        };
-                        query: {};
-                        headers: {};
-                        response: {
-                            200: Bun.BunFile;
-                            403: {
-                                readonly status: "failed";
-                                readonly message: "Forbidden";
-                            };
-                            422: {
-                                type: "validation";
-                                on: string;
-                                summary?: string;
-                                message?: string;
-                                found?: unknown;
-                                property?: string;
-                                expected?: string;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-}, {
+}) & {}, {
     derive: {};
     resolve: {};
     schema: {};

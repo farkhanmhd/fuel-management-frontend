@@ -1,9 +1,5 @@
 import axios from "axios";
 
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
-});
-
 export const clientApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
 });
@@ -19,9 +15,4 @@ clientApi.interceptors.request.use(async (config) => {
   }
 
   return config;
-});
-
-export const authAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL,
-  headers: { "Content-Type": "application/json" },
 });

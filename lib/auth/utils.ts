@@ -22,18 +22,24 @@ export const getAccessToken = cache(async () => {
   return token;
 });
 
-export interface ApiError {
-  code: number | null; // from your response meta
+export interface AuthApiError {
+  code: number | null;
   message: string;
   status: number | null;
 }
 
-export const withAuth = async <T>(
-  fn: (token: string) => Promise<T>
-): Promise<{ data: T; error: null } | { data: null; error: ApiError }> => {
+export interface ApiError {
+  message: string;
+  status: string;
+}
+
+export const apiRequest = async <T>(
+  fn: () => Promise<T>
+): Promise<
+  { data: T; error: null } | { data: null; error: AuthApiError | ApiError }
+> => {
   try {
-    const data = await fn(await getAccessToken());
-    return { data, error: null };
+    return { data: await fn(), error: null };
   } catch (err) {
     if (axios.isAxiosError(err)) {
       return {
@@ -45,13 +51,42 @@ export const withAuth = async <T>(
         },
       };
     }
-
     return {
       data: null,
       error: {
         message: err instanceof Error ? err.message : String(err),
         status: null,
         code: null,
+      },
+    };
+  }
+};
+
+export const withAuth = async <T>(
+  fn: (token: string) => Promise<T>
+): Promise<
+  { data: T; error: null } | { data: null; error: ApiError | AuthApiError }
+> => {
+  try {
+    const data = await fn(await getAccessToken());
+    return { data, error: null };
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return {
+        data: null,
+        error: {
+          message: err.response?.data?.message,
+          status: err.response?.data?.status ?? null,
+          code: err.response?.data?.code,
+        },
+      };
+    }
+
+    return {
+      data: null,
+      error: {
+        message: err instanceof Error ? err.message : String(err),
+        status: err instanceof Error ? err.name : String(err),
       },
     };
   }

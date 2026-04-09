@@ -1,6 +1,6 @@
 import type { elysia } from "@/lib/elysia";
 import { withAuth } from "../auth/utils";
-import { api } from "../axios";
+import { api } from "../axios/server";
 import type { CreateAssetSchema, CreateDriverSchema } from "../schemas/dealers";
 
 export type DealerList = NonNullable<
