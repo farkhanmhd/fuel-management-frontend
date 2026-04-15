@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit } from "@hugeicons/core-free-icons";
+import { PencilEdit02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useAlertDialog } from "@/components/providers/alert-dialog-provider";
@@ -106,7 +106,7 @@ export const columns: ColumnDef<PermissionColumn>[] = [
           }}
           variant="ghost"
         >
-          <HugeiconsIcon icon={Edit} strokeWidth={2} />
+          <HugeiconsIcon icon={PencilEdit02Icon} strokeWidth={2} />
         </Button>
       );
     },

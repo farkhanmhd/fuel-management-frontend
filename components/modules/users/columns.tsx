@@ -1,6 +1,6 @@
 "use client";
 
-import { EyeIcon } from "@hugeicons/core-free-icons";
+import { PencilEdit02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
@@ -41,20 +41,6 @@ export const userColumns: ColumnDef<UserListData>[] = [
     },
   },
   {
-    accessorKey: "created_at",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Dibuat" />
-    ),
-    cell: ({ row }) => {
-      const date = new Date(row.original.created_at);
-      return date.toLocaleDateString("id-ID", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    },
-  },
-  {
     id: "Actions",
     cell: ({ row }) => {
       return (
@@ -62,7 +48,7 @@ export const userColumns: ColumnDef<UserListData>[] = [
           className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
           href={`/users/${row.original.uuid}` as Route}
         >
-          <HugeiconsIcon icon={EyeIcon} />
+          <HugeiconsIcon icon={PencilEdit02Icon} />
         </Link>
       );
     },

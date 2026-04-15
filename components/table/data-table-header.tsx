@@ -8,11 +8,14 @@ export const DataTableHeader = () => {
   "use no memo";
   const { table } = useTableContext();
   return (
-    <TableHeader className="sticky top-0 z-49 bg-background">
+    <TableHeader className="sticky top-0 z-49">
       {table.getHeaderGroups().map((headerGroup) => (
         <TableRow key={headerGroup.id}>
           {headerGroup.headers.map((header) => (
-            <TableHead className="px-4" key={header.id}>
+            <TableHead
+              className="bg-primary px-4 text-primary-foreground dark:bg-chart-3"
+              key={header.id}
+            >
               {header.isPlaceholder
                 ? null
                 : flexRender(

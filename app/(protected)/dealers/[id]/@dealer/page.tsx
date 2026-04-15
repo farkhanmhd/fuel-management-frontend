@@ -8,7 +8,7 @@ type Props = {
 
 const DealerCard = async ({ params }: Props) => {
   const { id } = await params;
-  const { data: dealer } = await DealersApi.getDealerDetail(id);
+  const dealer = await DealersApi.getDealerDetail(id);
 
   if (!dealer) {
     notFound();

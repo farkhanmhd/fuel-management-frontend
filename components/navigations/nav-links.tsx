@@ -41,7 +41,7 @@ export function NavLinks({ items }: Props) {
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
-                className="text-base group-data-[collapsible=icon]:size-12! group-data-[collapsible=icon]:p-2! [&_svg]:size-5"
+                className="dark:active-bg-background text-base hover:text-primary active:text-primary data-active:bg-background data-active:text-primary group-data-[collapsible=icon]:size-12! group-data-[collapsible=icon]:p-2! dark:hover:bg-background [&_svg]:size-5"
                 isActive={isActive}
                 onClick={handleLinkClick}
                 size="lg"

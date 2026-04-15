@@ -33,7 +33,7 @@ export const SiteHeader = () => {
             <Separator className="mr-2" orientation="vertical" />
           </>
         )}
-        <span className="font-medium text-lg">{title}</span>
+        <span className="font-medium text-lg text-primary">{title}</span>
       </div>
       <div className="flex items-center gap-2">
         <Client>

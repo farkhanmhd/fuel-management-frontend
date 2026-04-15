@@ -1,7 +1,9 @@
 import axios from "axios";
+import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
+import { type SessionData, sessionOptions } from "./session";
 
 export interface AuthApiResponse<T> {
   data: T;
@@ -14,12 +16,16 @@ export interface AuthApiResponse<T> {
 
 export const getAccessToken = cache(async () => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("auth-token")?.value;
-  if (!token) {
+  const session = await getIronSession<SessionData>(
+    cookieStore,
+    sessionOptions
+  );
+
+  if (!session.accessToken) {
     redirect("/login");
   }
 
-  return token;
+  return session.accessToken;
 });
 
 export interface AuthApiError {
@@ -32,35 +38,6 @@ export interface ApiError {
   message: string;
   status: string;
 }
-
-export const apiRequest = async <T>(
-  fn: () => Promise<T>
-): Promise<
-  { data: T; error: null } | { data: null; error: AuthApiError | ApiError }
-> => {
-  try {
-    return { data: await fn(), error: null };
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return {
-        data: null,
-        error: {
-          message: err.response?.data?.message,
-          status: err.response?.status ?? null,
-          code: err.response?.data?.meta?.code,
-        },
-      };
-    }
-    return {
-      data: null,
-      error: {
-        message: err instanceof Error ? err.message : String(err),
-        status: null,
-        code: null,
-      },
-    };
-  }
-};
 
 export const withAuth = async <T>(
   fn: (token: string) => Promise<T>

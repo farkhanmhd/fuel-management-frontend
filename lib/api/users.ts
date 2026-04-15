@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import { withAuth } from "../auth/utils";
 import { api } from "../axios/server";
 import type { elysia } from "../elysia";
 import type { AddUserSchema, UpdateUserDataSchema } from "../schemas/users";
+import type { PaginationQuery } from "../utils";
 import type { BaseAPIResponse } from "./utils";
 
 interface CreatedUserResponse extends BaseAPIResponse {
@@ -40,39 +40,26 @@ interface UpdateUserDataParams {
 }
 
 export abstract class UsersApi {
-  static async getUsers() {
-    const { data } = await withAuth(async (token: string) => {
-      const response = await api.get<GetUsersResponse>("/api/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      return response.data;
+  static async getUsers(query: PaginationQuery) {
+    const response = await api.get<GetUsersResponse>("/api/users", {
+      params: query,
     });
+
+    const data = response.data;
 
     if (!data) {
       notFound();
     }
 
-    const users = data.data.users;
+    const { users, total } = data.data;
 
-    return users;
+    return { users, total };
   }
 
   static async getUserById(userId: string) {
-    const { data } = await withAuth(async (token: string) => {
-      const response = await api.get<GetUserByIdResponse>(
-        `/api/users/${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const response = await api.get<GetUserByIdResponse>(`/api/users/${userId}`);
 
-      return response.data;
-    });
+    const data = response.data;
 
     if (!data) {
       notFound();
@@ -82,55 +69,29 @@ export abstract class UsersApi {
   }
 
   static async addUser(body: AddUserSchema) {
-    const result = await withAuth(async (token) => {
-      const response = await api.post<CreatedUserResponse>(
-        "/api/users/create",
-        body,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    const response = await api.post<CreatedUserResponse>(
+      "/api/users/create",
+      body
+    );
 
-      return response.data;
-    });
-
-    return result;
+    return response.data;
   }
 
   static async updateUserData(params: UpdateUserDataParams) {
-    const result = await withAuth(async (token) => {
-      const response = await api.patch(
-        `/api/users/${params.userId}/update`,
-        params.body,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const response = await api.patch(
+      `/api/users/${params.userId}/update`,
+      params.body
+    );
 
-      return response.data;
-    });
-
-    return result;
+    return response.data;
   }
 
   static async resetUserPassword(userId: string) {
-    const result = await withAuth(async (token) => {
-      const response = await api.post(
-        "/api/users/resetpassword",
-        {
-          userId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      return response.data;
+    const response = await api.post("/api/users/resetpassword", {
+      userId,
     });
 
-    return result;
+    return response.data;
   }
 
   static async getUserPermissions(userId: string) {

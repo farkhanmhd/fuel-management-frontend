@@ -3,6 +3,7 @@
 import { User } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -12,6 +13,7 @@ import {
 
 export function NavUser() {
   const { isMobile, toggleSidebar } = useSidebar();
+  const pathname = usePathname();
 
   const handleLinkClick = () => {
     if (isMobile) {
@@ -19,12 +21,15 @@ export function NavUser() {
     }
   };
 
+  const isActive = pathname === "/account";
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton
           asChild
-          className="text-base group-data-[collapsible=icon]:size-12! group-data-[collapsible=icon]:p-2! [&_svg]:size-5"
+          className="text-base hover:text-primary active:text-primary data-active:bg-sidebar data-active:text-primary group-data-[collapsible=icon]:size-12! group-data-[collapsible=icon]:p-2! dark:active:bg-sidebar dark:hover:bg-sidebar [&_svg]:size-5"
+          isActive={isActive}
           onClick={handleLinkClick}
           size="lg"
         >

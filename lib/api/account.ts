@@ -13,15 +13,19 @@ type GetAccountResponse = {
 
 export abstract class AccountApi {
   static async getMyAccount() {
-    const { data } = await withAuth<GetAccountResponse>(async (token) => {
+    const { data } = await withAuth(async (token) => {
       const response = await authAxios.get<GetAccountResponse>(
         "/api/v1/verify-token",
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
-      return response.data;
+      const data = response.data;
+
+      return data;
     });
 
     if (!data) {
@@ -32,21 +36,9 @@ export abstract class AccountApi {
   }
 
   static async changePassword(body: ChangePasswordSchema) {
-    const result = await withAuth(async (token) => {
-      const { confirm_password, ...payload } = body;
-      const { data } = await api.patch<BaseAPIResponse>(
-        "/api/account",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const { confirm_password, ...payload } = body;
+    const result = await api.patch<BaseAPIResponse>("/api/account", payload);
 
-      return data;
-    });
-
-    return result;
+    return result.data;
   }
 }

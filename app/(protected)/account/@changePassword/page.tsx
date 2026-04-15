@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 const ChangePasswordSlot = () => {
   return (
     <Card>
-      <CardHeader className="pb-3">
+      <CardHeader>
         <div className="flex items-center gap-2.5">
           <div className="flex size-8 items-center justify-center rounded-md bg-muted">
             <HugeiconsIcon
@@ -26,7 +26,7 @@ const ChangePasswordSlot = () => {
 
       <Separator />
 
-      <CardContent className="pt-5">
+      <CardContent>
         <ChangePasswordForm />
       </CardContent>
     </Card>

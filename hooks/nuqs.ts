@@ -12,7 +12,7 @@ const paginationParsers = {
 
 const paginationUrlKeys = {
   pageIndex: "page",
-  pageSize: "rows",
+  pageSize: "limit",
 };
 
 export function useTablePaginationSearchParams() {

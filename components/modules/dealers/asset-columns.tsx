@@ -1,6 +1,6 @@
 "use client";
 
-import { EyeIcon, UserCheck01Icon } from "@hugeicons/core-free-icons";
+import { PencilEdit02Icon, UserCheck01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
@@ -71,7 +71,7 @@ export const dealerAssetColumns: ColumnDef<DealerAsset>[] = [
             className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
             href={`/assets/${row.original.id}` as Route}
           >
-            <HugeiconsIcon icon={EyeIcon} />
+            <HugeiconsIcon icon={PencilEdit02Icon} />
           </Link>
         </div>
       );

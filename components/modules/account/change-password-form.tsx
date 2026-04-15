@@ -102,12 +102,12 @@ export function ChangePasswordForm() {
     onSubmit: async ({ value }) => {
       try {
         const result = await changePasswordAction(value);
-        if (result.data?.status === "success") {
+        if (result.status === "success") {
           toast.success("Password berhasil diubah");
           form.reset();
           setIsEditing(false);
         } else {
-          toast.error(`Gagal mengubah password ${result.error?.message}`);
+          toast.error(`Gagal mengubah password ${result.message}`);
         }
       } catch (error) {
         let message = "Server Error";
@@ -191,7 +191,6 @@ export function ChangePasswordForm() {
             <Button
               disabled={isSubmitting}
               onClick={handleCancel}
-              size="sm"
               type="button"
               variant="ghost"
             >
@@ -202,7 +201,7 @@ export function ChangePasswordForm() {
               />
               Batal
             </Button>
-            <Button disabled={isSubmitting} size="sm" type="submit">
+            <Button disabled={isSubmitting} type="submit">
               {isSubmitting ? "Menyimpan..." : "Simpan Password"}
             </Button>
           </div>
@@ -219,12 +218,7 @@ export function ChangePasswordForm() {
           <p className="text-muted-foreground text-sm leading-relaxed">
             Perbarui password Anda secara berkala untuk menjaga keamanan akun.
           </p>
-          <Button
-            className="shrink-0"
-            onClick={() => setIsEditing(true)}
-            size="sm"
-            variant="outline"
-          >
+          <Button onClick={() => setIsEditing(true)} variant="outline">
             <HugeiconsIcon
               className="size-3.5"
               icon={PencilEdit01Icon}

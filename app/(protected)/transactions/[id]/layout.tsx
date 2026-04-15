@@ -1,8 +1,6 @@
-import { ArrowLeft } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
+import { BackButton } from "@/components/navigations/back-button";
 
 interface Props {
   asset: React.ReactNode;
@@ -26,17 +24,7 @@ const TransactionDetailLayout = ({
     <Suspense>
       <div className="flex flex-col gap-4 px-1">
         <div className="flex items-center gap-2">
-          <Link
-            className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
-            href="/transactions"
-          >
-            <HugeiconsIcon
-              className="size-4"
-              icon={ArrowLeft}
-              strokeWidth={2}
-            />
-            <span>Kembali</span>
-          </Link>
+          <BackButton />
         </div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
           <div className="flex flex-col gap-4 lg:col-span-3">{evidence}</div>

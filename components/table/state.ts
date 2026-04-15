@@ -26,7 +26,6 @@ interface UseTableProps<TData extends { id: string }, TValue> {
 export const useTable = <TData extends { id: string }, TValue>({
   columns,
   manualPagination = false,
-  rowCount,
 }: UseTableProps<TData, TValue>) => {
   "use no memo";
   const [internalData, setInternalData] = useState<TData[]>([]);
@@ -34,6 +33,7 @@ export const useTable = <TData extends { id: string }, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useSearchQueryParams();
   const [rowSelection, setRowSelection] = useState({});
+  const [rowCount, setRowCount] = useState(20);
   const [paginationState, setPaginationState] =
     useTablePaginationSearchParams();
   const [manualPaginationState, setManualPaginationState] =
@@ -91,5 +91,6 @@ export const useTable = <TData extends { id: string }, TValue>({
     globalFilter,
     setGlobalFilter,
     isManualPagination: manualPagination,
+    setRowCount,
   };
 };

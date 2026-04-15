@@ -14,6 +14,7 @@ interface TableContextType<T extends { id: string }> {
     value: string | ((old: string) => string | null) | null
   ) => Promise<URLSearchParams>;
   setInternalData: (data: T[]) => void;
+  setRowCount: (data: number) => void;
   table: Table<T>;
 }
 
@@ -23,14 +24,12 @@ interface TableProviderProps<T extends { id: string }> {
   children: ReactNode;
   columns: ColumnDef<T, unknown>[];
   manualPagination?: boolean;
-  rowCount?: number;
   selectableRows?: boolean;
 }
 
 export function TableProvider<T extends { id: string }>({
   children,
   columns,
-  rowCount,
   manualPagination = false,
   selectableRows = false,
 }: TableProviderProps<T>) {
@@ -42,10 +41,10 @@ export function TableProvider<T extends { id: string }>({
     setGlobalFilter,
     isManualPagination,
     setInternalData,
+    setRowCount,
   } = useTable({
     columns,
     manualPagination,
-    rowCount,
   });
 
   const value: TableContextType<T> = {
@@ -57,6 +56,7 @@ export function TableProvider<T extends { id: string }>({
     isManualPagination,
     selectableRows,
     setInternalData,
+    setRowCount,
   };
 
   return (

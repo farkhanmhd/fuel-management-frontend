@@ -10,7 +10,7 @@ export const BackButton = () => {
   return (
     <Button onClick={back} variant="link">
       <HugeiconsIcon className="size-4" icon={ArrowLeft} strokeWidth={2} />
-      <span>Kembali</span>
+      <span className="text-base">Kembali</span>
     </Button>
   );
 };

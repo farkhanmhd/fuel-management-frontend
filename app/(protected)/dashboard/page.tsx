@@ -292,21 +292,21 @@ const DashboardPage = () => {
         <CardContent>
           <div className="relative w-full overflow-auto rounded-lg border">
             <table className="w-full caption-bottom text-sm">
-              <thead className="[&_tr]:border-b">
+              <thead className="bg-primary text-primary-foreground [&_tr]:border-b">
                 <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                  <th className="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
+                  <th className="h-10 px-2 text-left align-middle font-medium">
                     Tanggal
                   </th>
-                  <th className="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
+                  <th className="h-10 px-2 text-left align-middle font-medium">
                     Driver
                   </th>
-                  <th className="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
+                  <th className="h-10 px-2 text-left align-middle font-medium">
                     Aset
                   </th>
-                  <th className="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
+                  <th className="h-10 px-2 text-left align-middle font-medium">
                     Liter
                   </th>
-                  <th className="h-10 px-2 text-right align-middle font-medium text-muted-foreground">
+                  <th className="h-10 px-2 text-right align-middle font-medium">
                     Total
                   </th>
                 </tr>

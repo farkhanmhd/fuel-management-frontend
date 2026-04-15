@@ -22,7 +22,7 @@ export const DataTableLayout = ({
   return (
     <ScrollArea
       className={cn(
-        "max-w-[calc(100svw-48px)] overflow-hidden rounded-xl border",
+        "max-w-[calc(100svw-48px)] overflow-hidden rounded-xl border bg-background",
         {
           "md:w-[calc(100svw-336px)]": fullWidth && open,
           "md:w-[calc(100svw-112px)]": fullWidth && !open,

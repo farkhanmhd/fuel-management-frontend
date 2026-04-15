@@ -16,7 +16,7 @@ interface Props {
 
 const UserLayout = ({ children }: Props) => {
   return (
-    <TableProvider columns={userColumns}>
+    <TableProvider columns={userColumns} manualPagination>
       <div className="flex flex-col gap-4">
         <div className="flex w-full items-center justify-between gap-4">
           <DataTableSearch className="w-full max-w-sm" />

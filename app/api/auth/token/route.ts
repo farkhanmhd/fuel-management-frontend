@@ -1,15 +1,17 @@
-// app/api/auth/token/route.ts
+import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { type SessionData, sessionOptions } from "@/lib/auth/session";
 
 export async function GET() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("auth-token")?.value;
-  console.log(token);
+  const session = await getIronSession<SessionData>(
+    await cookies(),
+    sessionOptions
+  );
 
-  if (!token) {
+  if (!session.accessToken) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  return NextResponse.json({ token });
+  return NextResponse.json({ token: session.accessToken });
 }
