@@ -1,5 +1,4 @@
-import { withAuth } from "../auth/utils";
-import { api } from "../axios/server";
+import { clientApi } from "../axios/client";
 import type { elysia } from "../elysia";
 import type { PermissionSchema } from "../schemas/permissions";
 
@@ -11,28 +10,23 @@ export type Permission = NonNullable<
 
 export abstract class PermissionsApi {
   static async getAllPermissions() {
-    const response = await api.get<{ data: { permissions: Permission[] } }>(
-      "/api/permissions"
-    );
+    const response = await clientApi.get<{
+      data: { permissions: Permission[] };
+    }>("/api/permissions");
+
+    if (!response.data) {
+      throw new Error("Failed to fetch all permissions");
+    }
 
     return response.data.data.permissions;
   }
 
   static async addPermission(body: PermissionSchema) {
-    const { data } = await withAuth(async (token) => {
-      const response = await api.post<{ data: { id: string } }>(
-        "/api/permissions",
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const response = await clientApi.post<{ data: { id: string } }>(
+      "/api/permissions",
+      body
+    );
 
-      return response.data.data;
-    });
-
-    return { data };
+    return response.data.data;
   }
 }

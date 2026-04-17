@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useTableContext } from "./context";
+import { useTableContext } from "./react-table";
 
 export function DataTablePagination() {
   "use no memo";

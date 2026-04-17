@@ -1,5 +1,5 @@
 import type { elysia } from "@/lib/elysia";
-import { api } from "../axios/server";
+import { clientApi } from "../axios/client";
 import type { CreateAssetSchema, CreateDriverSchema } from "../schemas/dealers";
 
 export type DealerList = NonNullable<
@@ -47,14 +47,14 @@ export type DealerDriver = {
 
 export abstract class DealersApi {
   static async getDealers() {
-    const response = await api.get<{ data: { dealers: DealerList[] } }>(
+    const response = await clientApi.get<{ data: { dealers: DealerList[] } }>(
       "/api/dealers"
     );
     return response.data.data.dealers;
   }
 
   static async getDealerDetail(dealerId: string) {
-    const response = await api.get<{
+    const response = await clientApi.get<{
       data: {
         dealer: DealerDetail;
       };
@@ -64,7 +64,7 @@ export abstract class DealersApi {
   }
 
   static async getDealerTransactions(dealerId: string) {
-    const response = await api.get<{
+    const response = await clientApi.get<{
       data: {
         transactions: DealerTransaction[];
       };
@@ -73,7 +73,7 @@ export abstract class DealersApi {
   }
 
   static async getDealerAssets(dealerId: string) {
-    const response = await api.get<{
+    const response = await clientApi.get<{
       data: {
         assets: DealerAsset[];
       };
@@ -82,7 +82,7 @@ export abstract class DealersApi {
   }
 
   static async getDealerDrivers(dealerId: string) {
-    const response = await api.get<{
+    const response = await clientApi.get<{
       data: {
         drivers: DealerDriver[];
       };
@@ -91,7 +91,7 @@ export abstract class DealersApi {
   }
 
   static async addDriver(dealerId: string, body: CreateDriverSchema) {
-    const response = await api.post<{ data: { driverId: string } }>(
+    const response = await clientApi.post<{ data: { driverId: string } }>(
       `/api/dealers/${dealerId}/drivers`,
       body
     );
@@ -100,7 +100,7 @@ export abstract class DealersApi {
   }
 
   static async addAsset(dealerId: string, body: CreateAssetSchema) {
-    const response = await api.post<{ data: { assetId: string } }>(
+    const response = await clientApi.post<{ data: { assetId: string } }>(
       `/api/dealers/${dealerId}/assets`,
       body
     );

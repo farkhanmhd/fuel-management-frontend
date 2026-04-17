@@ -10,9 +10,7 @@ interface TableContextType<T extends { id: string }> {
   internalData: T[];
   isManualPagination: boolean;
   selectableRows?: boolean;
-  setGlobalFilter: (
-    value: string | ((old: string) => string | null) | null
-  ) => Promise<URLSearchParams>;
+  setGlobalFilter: (value: string) => void;
   setInternalData: (data: T[]) => void;
   setRowCount: (data: number) => void;
   table: Table<T>;

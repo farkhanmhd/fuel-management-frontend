@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export const BackButton = () => {
   const { back } = useRouter();
   return (
-    <Button onClick={back} variant="link">
+    <Button className="px-0" onClick={back} variant="link">
       <HugeiconsIcon className="size-4" icon={ArrowLeft} strokeWidth={2} />
       <span className="text-base">Kembali</span>
     </Button>

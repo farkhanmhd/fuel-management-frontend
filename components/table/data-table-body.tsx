@@ -3,7 +3,7 @@
 import { flexRender } from "@tanstack/react-table";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { useTableContext } from "./context";
+import { useTableContext } from "./react-table";
 
 export const DataTableBody = () => {
   "use no memo";

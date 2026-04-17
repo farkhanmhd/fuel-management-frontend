@@ -4,7 +4,7 @@ import { verifyToken } from "./lib/auth";
 import { type SessionData, sessionOptions } from "./lib/auth/session";
 
 // Consider using an array to future-proof for /signup, /reset-password, etc.
-const publicRoutes = ["/login", "/"];
+const publicRoutes = ["/login"];
 const REVALIDATE_INTERVAL = 60 * 15;
 
 export default async function proxy(req: NextRequest) {
@@ -23,7 +23,7 @@ export default async function proxy(req: NextRequest) {
   }
 
   // 2. Logged in but on a public route
-  if (isPublicRoute) {
+  if (isPublicRoute || path === "/") {
     return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
   }
 
@@ -33,6 +33,7 @@ export default async function proxy(req: NextRequest) {
 
   if (isStale) {
     const isValid = await verifyToken(session.accessToken);
+    console.log(isValid);
 
     if (!isValid) {
       session.destroy();

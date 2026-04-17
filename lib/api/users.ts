@@ -1,5 +1,4 @@
-import { notFound } from "next/navigation";
-import { api } from "../axios/server";
+import { clientApi } from "../axios/client";
 import type { elysia } from "../elysia";
 import type { AddUserSchema, UpdateUserDataSchema } from "../schemas/users";
 import type { PaginationQuery } from "../utils";
@@ -22,9 +21,10 @@ export type GetUsersResponse = NonNullable<
 type UsersParamReturn = ReturnType<typeof elysia.api.users>;
 type GetUserByIdResponse = Awaited<ReturnType<UsersParamReturn["get"]>>["data"];
 type UserList = NonNullable<GetUsersResponse>["data"]["users"][number];
-export interface UserListData extends UserList {
+export interface UserListData extends Omit<UserList, "uuid"> {
   id: string;
 }
+
 export type UserData = NonNullable<GetUserByIdResponse>["data"]["user"];
 
 export type UserPermissionsResponse = NonNullable<
@@ -41,14 +41,14 @@ interface UpdateUserDataParams {
 
 export abstract class UsersApi {
   static async getUsers(query: PaginationQuery) {
-    const response = await api.get<GetUsersResponse>("/api/users", {
+    const response = await clientApi.get<GetUsersResponse>("/api/users", {
       params: query,
     });
 
     const data = response.data;
 
     if (!data) {
-      notFound();
+      throw new Error("Failed to fetch users");
     }
 
     const { users, total } = data.data;
@@ -57,19 +57,21 @@ export abstract class UsersApi {
   }
 
   static async getUserById(userId: string) {
-    const response = await api.get<GetUserByIdResponse>(`/api/users/${userId}`);
+    const response = await clientApi.get<GetUserByIdResponse>(
+      `/api/users/${userId}`
+    );
 
     const data = response.data;
 
     if (!data) {
-      notFound();
+      throw new Error("Failed to fetch user");
     }
 
     return data.data.user;
   }
 
   static async addUser(body: AddUserSchema) {
-    const response = await api.post<CreatedUserResponse>(
+    const response = await clientApi.post<CreatedUserResponse>(
       "/api/users/create",
       body
     );
@@ -78,7 +80,8 @@ export abstract class UsersApi {
   }
 
   static async updateUserData(params: UpdateUserDataParams) {
-    const response = await api.patch(
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const response = await clientApi.patch(
       `/api/users/${params.userId}/update`,
       params.body
     );
@@ -87,7 +90,7 @@ export abstract class UsersApi {
   }
 
   static async resetUserPassword(userId: string) {
-    const response = await api.post("/api/users/resetpassword", {
+    const response = await clientApi.post("/api/users/resetpassword", {
       userId,
     });
 
@@ -95,9 +98,13 @@ export abstract class UsersApi {
   }
 
   static async getUserPermissions(userId: string) {
-    const { data } = await api.get<UserPermissionsResponse>(
+    const { data } = await clientApi.get<UserPermissionsResponse>(
       `/api/users/${userId}/permissions`
     );
+
+    if (!data.data.permissions) {
+      throw new Error("Failed to fetch user permissions");
+    }
 
     return data.data.permissions;
   }

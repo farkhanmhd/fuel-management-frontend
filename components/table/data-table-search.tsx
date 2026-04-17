@@ -4,7 +4,7 @@ import { Search } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useTableContext } from "./context";
+import { useTableContext } from "./react-table";
 
 type Props = {
   placeholder?: string;
@@ -16,12 +16,13 @@ export const DataTableSearch = ({
   className,
 }: Props) => {
   "use no memo";
-  const { globalFilter, setGlobalFilter, table } = useTableContext();
+  const { table, searchValue, onSearchChange } = useTableContext();
 
-  const handleTableSearchChange = (searchQuery: string) => {
-    setGlobalFilter(searchQuery);
-    table.firstPage();
+  const handleSearchChange = (value: string) => {
+    onSearchChange(value);
+    table.setPageIndex(0);
   };
+
   return (
     <div className={cn("relative flex items-center gap-2 px-0", className)}>
       <HugeiconsIcon
@@ -30,9 +31,9 @@ export const DataTableSearch = ({
       />
       <Input
         className="w-full bg-background pl-8"
-        onChange={(e) => handleTableSearchChange(e.target.value)}
+        onChange={(e) => handleSearchChange(e.target.value)}
         placeholder={placeholder}
-        value={globalFilter}
+        value={searchValue}
       />
     </div>
   );

@@ -12,10 +12,7 @@ import {
 import type { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import {
-  useSearchQueryParams,
-  useTablePaginationSearchParams,
-} from "@/hooks/nuqs";
+import { useTablePaginationSearchParams } from "@/hooks/nuqs";
 
 interface UseTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,7 +28,7 @@ export const useTable = <TData extends { id: string }, TValue>({
   const [internalData, setInternalData] = useState<TData[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useSearchQueryParams();
+  const [globalFilter, setGlobalFilter] = useState("");
   const [rowSelection, setRowSelection] = useState({});
   const [rowCount, setRowCount] = useState(20);
   const [paginationState, setPaginationState] =

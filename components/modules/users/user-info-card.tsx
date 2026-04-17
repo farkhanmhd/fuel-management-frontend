@@ -103,11 +103,7 @@ export function UserInfoCard({ user }: UserInfoCardProps) {
 
         <div className="flex items-center gap-2">
           {!isEditing && (
-            <Button
-              onClick={() => setIsEditing(true)}
-              size="sm"
-              variant="outline"
-            >
+            <Button onClick={() => setIsEditing(true)} variant="outline">
               <HugeiconsIcon
                 className="size-3.5"
                 icon={PencilEdit01Icon}

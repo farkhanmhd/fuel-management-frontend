@@ -1,19 +1,16 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { useTableContext } from "./react-table";
 
-interface DataTableSkeletonProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface DataTableSkeletonProps {
   rows: number;
 }
 
-export const DataTableSkeleton = <TData, TValue>({
-  rows,
-  columns,
-}: DataTableSkeletonProps<TData, TValue>) => {
+export const DataTableSkeleton = ({ rows }: DataTableSkeletonProps) => {
   "use no memo";
+  const { columns } = useTableContext();
 
   return (
     <TableBody>

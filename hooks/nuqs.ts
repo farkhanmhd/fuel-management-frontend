@@ -20,15 +20,3 @@ export function useTablePaginationSearchParams() {
     urlKeys: paginationUrlKeys,
   });
 }
-
-export function useSearchQueryParams() {
-  return useQueryState("search", {
-    defaultValue: '',
-    shallow: false,
-    history: 'replace',
-    limitUrlUpdates: {
-      method: 'debounce',
-      timeMs: 400
-    }
-  });
-}

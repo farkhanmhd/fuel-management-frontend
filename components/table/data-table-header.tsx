@@ -2,7 +2,7 @@
 
 import { flexRender } from "@tanstack/react-table";
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useTableContext } from "./context";
+import { useTableContext } from "./react-table";
 
 export const DataTableHeader = () => {
   "use no memo";

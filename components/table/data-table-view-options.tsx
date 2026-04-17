@@ -11,7 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useTableContext } from "./context";
+import { useTableContext } from "./react-table";
 
 export function DataTableViewOptions() {
   "use no memo";
