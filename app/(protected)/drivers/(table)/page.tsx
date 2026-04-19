@@ -1,17 +1,10 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import {
   type DriverTable,
   driverColumns,
 } from "@/components/modules/drivers/columns";
-import { DataTableBody } from "@/components/table/data-table-body";
-import { DataTableLayout } from "@/components/table/data-table-layout";
-import { DataTablePagination } from "@/components/table/data-table-pagination";
-import { DataTableSearch } from "@/components/table/data-table-search";
-import { DataTableSkeleton } from "@/components/table/data-table-skeleton";
-import { TableProvider } from "@/components/table/react-table";
-import { ErrorState } from "@/components/utils/error-state";
+import { DataTableView } from "@/components/table/data-table-view";
 
 const mockDrivers: () => Promise<DriverTable[]> = async () => {
   await new Promise((res) => setTimeout(res, 3000));
@@ -156,33 +149,13 @@ const mockDrivers: () => Promise<DriverTable[]> = async () => {
 };
 
 const DriversPage = () => {
-  const { data, isLoading, isError, refetch, error } = useQuery({
-    queryFn: () => mockDrivers(),
-    queryKey: ["drivers"],
-  });
-
-  if (isError) {
-    return (
-      <ErrorState
-        description={error?.message}
-        onRetry={() => refetch()}
-        title="Failed to load Dealers"
-      />
-    );
-  }
-
   return (
-    <TableProvider columns={driverColumns} data={data || []}>
-      <div className="flex flex-col gap-4">
-        <div className="flex w-full items-center justify-between gap-4">
-          <DataTableSearch className="w-sm max-w-full" />
-        </div>
-        <DataTableLayout fullWidth>
-          {isLoading ? <DataTableSkeleton rows={10} /> : <DataTableBody />}
-        </DataTableLayout>
-        <DataTablePagination />
-      </div>
-    </TableProvider>
+    <DataTableView
+      columns={driverColumns}
+      errorTitle="Failed to load Drivers"
+      queryFn={() => mockDrivers()}
+      queryKey={["drivers"]}
+    />
   );
 };
 

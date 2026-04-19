@@ -54,9 +54,9 @@ export function UpdatePermissionDialog() {
     <AlertDialog onOpenChange={onOpenChange} open={open}>
       <AlertDialogContent className="sm:max-w-md">
         <AlertDialogHeader>
-          <AlertDialogTitle>Tambah Permission Baru</AlertDialogTitle>
-          <AlertDialogDescription className="text-xs">
-            Isi data di bawah untuk membuat permission baru.
+          <AlertDialogTitle>Edit Permission</AlertDialogTitle>
+          <AlertDialogDescription>
+            Silakan perbarui data permission di bawah ini.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -72,7 +72,7 @@ export function UpdatePermissionDialog() {
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isPending}>Batal</AlertDialogCancel>
           <Button disabled={isPending} form="add-permission-form" type="submit">
-            {isPending ? "Menyimpan..." : "Tambah Permission"}
+            {isPending ? "Menyimpan..." : "Simpan"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

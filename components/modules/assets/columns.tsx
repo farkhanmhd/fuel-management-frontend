@@ -5,23 +5,11 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import type { AssetDetail } from "@/lib/api/assets";
 import { cn } from "@/lib/utils";
 
-export type Asset = {
-  id: string;
-  modelName: string;
-  licensePlate: string;
-  assetYear: number;
-  dealerName: string;
-  status: "MDS" | "NEQ" | "SEWA";
-  totalKilometer: number;
-  totalLiter: number;
-  averageKilometerPerLitre: number;
-};
-
-export const assetColumns: ColumnDef<Asset>[] = [
+export const assetColumns: ColumnDef<AssetDetail>[] = [
   {
     accessorKey: "licensePlate",
     header: "Plat Kendaraan",
@@ -40,29 +28,6 @@ export const assetColumns: ColumnDef<Asset>[] = [
   {
     accessorKey: "dealerName",
     header: "Dealer",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      const statusColors: Record<
-        string,
-        React.ComponentProps<typeof Badge>["variant"]
-      > = {
-        MDS: "default",
-        NEQ: "secondary",
-        SEWA: "outline",
-      };
-
-      return (
-        <Badge
-          className="font-bold"
-          variant={statusColors[row.original.status]}
-        >
-          {row.original.status}
-        </Badge>
-      );
-    },
   },
   {
     accessorKey: "totalKilometer",

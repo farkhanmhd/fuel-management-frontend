@@ -1437,6 +1437,97 @@ declare const app: Elysia<"", {
             };
         };
     };
+} & {
+    api: {
+        assets: {};
+    } & {
+        assets: {
+            get: {
+                body: {};
+                params: {};
+                query: {};
+                headers: {};
+                response: {
+                    200: {
+                        data: {
+                            assets: {
+                                id: string;
+                                licensePlate: string;
+                                modelName: string;
+                                assetYear: number;
+                                dealerName: string;
+                                dealerArea: string;
+                                totalKilometer: number;
+                                totalLiter: number;
+                                averageKilometerPerLitre: number;
+                            }[];
+                        };
+                        status: string;
+                        message: string;
+                    };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
+                    };
+                };
+            };
+        };
+    } & {
+        assets: {
+            post: {
+                body: {
+                    dealerId: number;
+                    licensePlate: string;
+                    year: number;
+                    fuelType: "bensin" | "solar";
+                    startingKiloMeter: number;
+                    modelName: string;
+                };
+                params: {};
+                query: {};
+                headers: {};
+                response: {
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
+                    201: {
+                        data: {
+                            assetId: string;
+                        };
+                        status: string;
+                        message: string;
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
 }) & {}, {
     derive: {};
     resolve: {};
