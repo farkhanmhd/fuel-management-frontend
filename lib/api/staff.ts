@@ -39,8 +39,6 @@ export class StaffApi {
         params: {
           cabang_id,
           search,
-          page: 1, // As requested, paginated and show 5 data max
-          per_page: 5, // Assuming this is the param for 5 data max
         },
       }
     );

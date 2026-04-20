@@ -6,6 +6,7 @@ import { UpdatePermissionDialog } from "@/components/modules/permissions/edit-pe
 import { AlertDialogProvider } from "@/components/providers/alert-dialog-provider";
 import { DataTableView } from "@/components/table/data-table-view";
 import { PermissionsApi } from "@/lib/api/permissions";
+import { queryKeys } from "@/lib/query-keys";
 
 const PermissionsPage = () => {
   return (
@@ -15,7 +16,7 @@ const PermissionsPage = () => {
         errorTitle="Failed to load Permissions"
         extraActions={<AddPermissionDialog />}
         queryFn={() => PermissionsApi.getAllPermissions()}
-        queryKey={["permissions"]}
+        queryKey={queryKeys.permissions()}
       >
         <UpdatePermissionDialog />
       </DataTableView>

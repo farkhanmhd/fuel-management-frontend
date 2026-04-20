@@ -6,6 +6,7 @@ import { useForm, useStore } from "@tanstack/react-form";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAuth } from "@/components/providers/auth-provider";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -34,6 +35,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { AssetsApi } from "@/lib/api/assets";
 import { DealersApi } from "@/lib/api/dealers";
+import { queryKeys } from "@/lib/query-keys";
 import { type CreateAssetInput, createAssetInput } from "@/lib/schemas/assets";
 
 const indonesiaVehiclePlateCodes = [
@@ -108,9 +110,10 @@ const defaultValues: CreateAssetInput = {
 export function AddAssetDialog() {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
+  const { session } = useAuth();
 
   const { data: dealers, isLoading: isLoadingDealers } = useQuery({
-    queryKey: ["dealers-list"],
+    queryKey: queryKeys.dealers(session?.userId as string),
     queryFn: () => DealersApi.getDealers(),
     enabled: open,
   });
@@ -133,7 +136,9 @@ export function AddAssetDialog() {
 
         await AssetsApi.createAsset({ ...rest, licensePlate });
         toast.success("Asset created successfully");
-        queryClient.invalidateQueries({ queryKey: ["assets"] });
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.assets(session?.userId as string),
+        });
         setOpen(false);
         form.reset();
       } catch (error) {

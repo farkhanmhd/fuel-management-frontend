@@ -9,6 +9,7 @@ import { UserInfoField } from "@/components/modules/users/user-info-field";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/utils/error-state";
 import { UsersApi } from "@/lib/api/users";
+import { queryKeys } from "@/lib/query-keys";
 
 export default function UserInfoPage() {
   const params = useParams<{ id: string }>();
@@ -22,7 +23,7 @@ export default function UserInfoPage() {
     error,
   } = useQuery({
     queryFn: () => UsersApi.getUserById(id),
-    queryKey: ["user-detail", id],
+    queryKey: queryKeys.user(id),
   });
 
   if (isLoading) {

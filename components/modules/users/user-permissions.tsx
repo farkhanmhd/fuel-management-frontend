@@ -6,6 +6,7 @@ import { UserPermissionsForm } from "@/components/modules/users/user-permissions
 import { ErrorState } from "@/components/utils/error-state";
 import { PermissionsApi } from "@/lib/api/permissions";
 import { UsersApi } from "@/lib/api/users";
+import { queryKeys } from "@/lib/query-keys";
 import { PermissionsFormSkeleton } from "../permissions/permissions-form-skeleton";
 
 export const UserPermissions = () => {
@@ -16,11 +17,11 @@ export const UserPermissions = () => {
     queries: [
       {
         queryFn: () => PermissionsApi.getAllPermissions(),
-        queryKey: ["permissions", id],
+        queryKey: queryKeys.permissions(),
       },
       {
         queryFn: () => UsersApi.getUserPermissions(id),
-        queryKey: ["users-permissions", id],
+        queryKey: queryKeys.userPermissions(id),
       },
     ],
   });

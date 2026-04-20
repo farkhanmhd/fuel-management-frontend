@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { userColumns } from "@/components/modules/users/columns";
 import { DataTableView } from "@/components/table/data-table-view";
 import { type UserListData, UsersApi } from "@/lib/api/users";
+import { queryKeys } from "@/lib/query-keys";
 
 const UsersPage = () => {
   const searchParams = useSearchParams();
@@ -21,7 +22,7 @@ const UsersPage = () => {
         })) as UserListData[]
       }
       queryFn={() => UsersApi.getUsers(queryParams)}
-      queryKey={["users", searchParams.toString()]}
+      queryKey={queryKeys.users(queryParams)}
       total={(data) => data?.total}
     />
   );

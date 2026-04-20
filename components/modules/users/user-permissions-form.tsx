@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import type { Permission } from "@/lib/api/permissions";
 import type { UserPermission } from "@/lib/api/users";
 import { clientApi } from "@/lib/axios/client";
+import { queryKeys } from "@/lib/query-keys";
 
 type Props = {
   permissions: Permission[] | null;
@@ -121,7 +122,7 @@ export function UserPermissionsForm({ permissions, userPermissions }: Props) {
 
         toast.success(`${value.permissionIds.length} permission(s) saved`);
         queryClient.invalidateQueries({
-          queryKey: ["users-permissions", params.id],
+          queryKey: queryKeys.userPermissions(params.id as string),
         });
         queryClient.invalidateQueries({ queryKey: ["dealers", params.id] });
         refresh();

@@ -2,6 +2,7 @@
 
 import { LogoutSquare01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import {
@@ -21,10 +22,12 @@ export function LogoutDialog() {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
+  const queryClient = useQueryClient();
 
   const submitAction = () => {
     startTransition(async () => {
       await logoutAction();
+      queryClient.clear();
       push("/login");
       setOpen(false);
     });

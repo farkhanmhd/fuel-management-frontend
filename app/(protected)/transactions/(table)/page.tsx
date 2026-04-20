@@ -2,7 +2,9 @@
 
 import type { Transaction } from "@/components/modules/transactions/columns";
 import { transactionColumns } from "@/components/modules/transactions/columns";
+import { useAuth } from "@/components/providers/auth-provider";
 import { DataTableView } from "@/components/table/data-table-view";
+import { queryKeys } from "@/lib/query-keys";
 
 const mockTransactions: () => Promise<Transaction[]> = async () => {
   await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -251,12 +253,13 @@ const mockTransactions: () => Promise<Transaction[]> = async () => {
 };
 
 const TransactionsPage = () => {
+  const { session } = useAuth();
   return (
     <DataTableView
       columns={transactionColumns}
       errorTitle="Failed to load Transactions"
       queryFn={() => mockTransactions()}
-      queryKey={["transactions"]}
+      queryKey={queryKeys.transactions(session?.userId as string)}
     />
   );
 };

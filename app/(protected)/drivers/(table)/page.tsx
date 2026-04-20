@@ -6,6 +6,7 @@ import { driverColumns } from "@/components/modules/drivers/columns";
 import { useAuth } from "@/components/providers/auth-provider";
 import { DataTableView } from "@/components/table/data-table-view";
 import { DriversApi } from "@/lib/api/drivers";
+import { queryKeys } from "@/lib/query-keys";
 
 const DriversPage = () => {
   const searchParams = useSearchParams();
@@ -20,7 +21,7 @@ const DriversPage = () => {
       manualPagination
       mapData={(data) => data?.drivers ?? []}
       queryFn={() => DriversApi.getDrivers(queryParams)}
-      queryKey={["drivers", session?.userId, queryParams]}
+      queryKey={queryKeys.drivers(session?.userId as string, queryParams)}
       total={(data) => data?.total}
     />
   );

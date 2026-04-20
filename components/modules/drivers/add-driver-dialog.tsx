@@ -5,6 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAuth } from "@/components/providers/auth-provider";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -37,9 +38,11 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { DealersApi } from "@/lib/api/dealers";
 import { StaffApi } from "@/lib/api/staff";
 import { clientApi } from "@/lib/axios/client";
+import { queryKeys } from "@/lib/query-keys";
 
 export function AddDriverDialog() {
   const [open, setOpen] = useState(false);
+  const { session } = useAuth();
   const [selectedDealerId, setSelectedDealerId] = useState<number | null>(null);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState("");
@@ -48,7 +51,7 @@ export function AddDriverDialog() {
   const queryClient = useQueryClient();
 
   const { data: dealers, isLoading: isLoadingDealers } = useQuery({
-    queryKey: ["dealers-list"],
+    queryKey: queryKeys.dealers(session?.userId as string),
     queryFn: () => DealersApi.getDealers(),
     enabled: open,
   });

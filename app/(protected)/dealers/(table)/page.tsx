@@ -4,6 +4,7 @@ import { dealerColumns } from "@/components/modules/dealers/columns";
 import { useAuth } from "@/components/providers/auth-provider";
 import { DataTableView } from "@/components/table/data-table-view";
 import { type DealerList, DealersApi } from "@/lib/api/dealers";
+import { queryKeys } from "@/lib/query-keys";
 
 const DealersPage = () => {
   const { session } = useAuth();
@@ -20,7 +21,7 @@ const DealersPage = () => {
         }))
       }
       queryFn={() => DealersApi.getDealers()}
-      queryKey={["dealers", session?.userId]}
+      queryKey={queryKeys.dealers(session?.userId as string)}
     />
   );
 };
