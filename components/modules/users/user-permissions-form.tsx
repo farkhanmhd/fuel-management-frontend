@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm, useStore } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -100,6 +101,7 @@ export function UserPermissionsForm({ permissions, userPermissions }: Props) {
   const totalAll = grouped.reduce((acc, [, p]) => acc + p.length, 0);
   const params = useParams();
   const { refresh } = useRouter();
+  const queryClient = useQueryClient();
 
   const matchedPermissionIds = (permissions ?? [])
     .filter((p) =>
@@ -118,6 +120,10 @@ export function UserPermissionsForm({ permissions, userPermissions }: Props) {
         });
 
         toast.success(`${value.permissionIds.length} permission(s) saved`);
+        queryClient.invalidateQueries({
+          queryKey: ["users-permissions", params.id],
+        });
+        queryClient.invalidateQueries({ queryKey: ["dealers", params.id] });
         refresh();
       } catch {
         toast.error("Failed to save permissions");

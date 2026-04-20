@@ -66,6 +66,14 @@ declare const app: Elysia<"", {
     error: {};
 } & {
     typebox: {
+        readonly "drivers.create.body": import("@sinclair/typebox").TObject<{
+            userId: import("@sinclair/typebox").TString;
+            dealerId: import("@sinclair/typebox").TNumber;
+        }>;
+    };
+    error: {};
+} & {
+    typebox: {
         readonly createFuelVariantSchema: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
         }>;
@@ -972,6 +980,94 @@ declare const app: Elysia<"", {
     };
 } & {
     api: {
+        drivers: {};
+    } & {
+        drivers: {
+            get: {
+                body: {};
+                params: {};
+                query: {
+                    search?: string | null | undefined;
+                    limit?: number | null | undefined;
+                    page?: number | null | undefined;
+                };
+                headers: {};
+                response: {
+                    200: {
+                        data: {
+                            total: number;
+                            drivers: {
+                                name: string;
+                                id: string;
+                                area: string;
+                                dealerName: string;
+                                totalAssetHandled: number;
+                            }[];
+                        };
+                        status: string;
+                        message: string;
+                    };
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
+                    };
+                };
+            };
+        };
+    } & {
+        drivers: {
+            post: {
+                body: {
+                    userId: string;
+                    dealerId: number;
+                };
+                params: {};
+                query: {};
+                headers: {};
+                response: {
+                    401: {
+                        status: "failed";
+                        message: "Unauthorized";
+                    };
+                    201: {
+                        data: {
+                            driverId: string;
+                        };
+                        status: string;
+                        message: string;
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                    500: {
+                        status: "failed";
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    api: {
         "fuel-variants": {};
     } & {
         "fuel-variants": {
@@ -1452,10 +1548,10 @@ declare const app: Elysia<"", {
                         data: {
                             assets: {
                                 id: string;
+                                dealerName: string;
                                 licensePlate: string;
                                 modelName: string;
                                 assetYear: number;
-                                dealerName: string;
                                 dealerArea: string;
                                 totalKilometer: number;
                                 totalLiter: number;

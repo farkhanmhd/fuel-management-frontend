@@ -34,7 +34,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { AssetsApi } from "@/lib/api/assets";
 import { DealersApi } from "@/lib/api/dealers";
-import { createAssetSchema } from "@/lib/schemas/assets";
+import { type CreateAssetInput, createAssetInput } from "@/lib/schemas/assets";
 
 const indonesiaVehiclePlateCodes = [
   "BL",
@@ -94,6 +94,17 @@ const indonesiaVehiclePlateCodes = [
   "PB",
 ];
 
+const defaultValues: CreateAssetInput = {
+  modelName: "",
+  plateCode: "",
+  plateNumber: "",
+  plateSeries: "",
+  year: new Date().getFullYear(),
+  fuelType: "bensin",
+  startingKiloMeter: 0,
+  dealerId: 0,
+};
+
 export function AddAssetDialog() {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -105,18 +116,9 @@ export function AddAssetDialog() {
   });
 
   const form = useForm({
-    defaultValues: {
-      modelName: "",
-      plateCode: "",
-      plateNumber: "",
-      plateSeries: "",
-      year: new Date().getFullYear(),
-      fuelType: "bensin",
-      startingKiloMeter: 0,
-      dealerId: 0,
-    },
+    defaultValues,
     validators: {
-      onSubmit: createAssetSchema,
+      onSubmit: createAssetInput,
     },
     onSubmit: async ({ value }) => {
       try {

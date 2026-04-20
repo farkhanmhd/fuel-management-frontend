@@ -6,33 +6,13 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import type { Driver } from "@/lib/api/drivers";
 import { cn } from "@/lib/utils";
 
-export type DriverTable = {
-  id: string;
-  nip: string;
-  name: string;
-  department: string;
-  dealerName: string;
-  area: string;
-  totalAssetHandled: number;
-};
-
-export const driverColumns: ColumnDef<DriverTable>[] = [
-  {
-    accessorKey: "nip",
-    header: "NIP",
-    cell: ({ row }) => {
-      return row.original.nip;
-    },
-  },
+export const driverColumns: ColumnDef<Driver>[] = [
   {
     accessorKey: "name",
     header: "Nama",
-  },
-  {
-    accessorKey: "department",
-    header: "Departemen",
   },
   {
     accessorKey: "dealerName",

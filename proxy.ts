@@ -33,7 +33,6 @@ export default async function proxy(req: NextRequest) {
 
   if (isStale) {
     const isValid = await verifyToken(session.accessToken);
-    console.log(isValid);
 
     if (!isValid) {
       session.destroy();

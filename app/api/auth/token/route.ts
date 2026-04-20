@@ -13,5 +13,5 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  return NextResponse.json({ token: session.accessToken });
+  return NextResponse.json({ token: session.accessToken, session });
 }

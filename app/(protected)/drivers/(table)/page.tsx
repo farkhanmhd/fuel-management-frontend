@@ -1,160 +1,27 @@
 "use client";
 
-import {
-  type DriverTable,
-  driverColumns,
-} from "@/components/modules/drivers/columns";
+import { useSearchParams } from "next/navigation";
+import { AddDriverDialog } from "@/components/modules/drivers/add-driver-dialog";
+import { driverColumns } from "@/components/modules/drivers/columns";
+import { useAuth } from "@/components/providers/auth-provider";
 import { DataTableView } from "@/components/table/data-table-view";
-
-const mockDrivers: () => Promise<DriverTable[]> = async () => {
-  await new Promise((res) => setTimeout(res, 3000));
-
-  return [
-    {
-      id: "1",
-      nip: "NIP-001",
-      name: "Ahmad Santoso",
-      department: "Logistik",
-      dealerName: "SENTRAL MEDAN",
-      area: "Sumatera Utara",
-      totalAssetHandled: 2,
-    },
-    {
-      id: "2",
-      nip: "NIP-002",
-      name: "Budi Prakoso",
-      department: "Pengiriman",
-      dealerName: "SETIA BUDI",
-      area: "Sumatera Utara",
-      totalAssetHandled: 1,
-    },
-    {
-      id: "3",
-      nip: "NIP-003",
-      name: "Citra Dewi",
-      department: "Operasional",
-      dealerName: "AR HAKIM",
-      area: "Sumatera Utara",
-      totalAssetHandled: 3,
-    },
-    {
-      id: "4",
-      nip: "NIP-004",
-      name: "Dedi Kurniawan",
-      department: "Logistik",
-      dealerName: "MARELAN",
-      area: "Sumatera Utara",
-      totalAssetHandled: 1,
-    },
-    {
-      id: "5",
-      nip: "NIP-005",
-      name: "Eka Pratama",
-      department: "Pengiriman",
-      dealerName: "SM RAJA",
-      area: "Sumatera Utara",
-      totalAssetHandled: 2,
-    },
-    {
-      id: "6",
-      nip: "NIP-006",
-      name: "Fitri Handayani",
-      department: "Operasional",
-      dealerName: "BILAL",
-      area: "Sumatera Utara",
-      totalAssetHandled: 1,
-    },
-    {
-      id: "7",
-      nip: "NIP-007",
-      name: "Gunawan",
-      department: "Logistik",
-      dealerName: "GATOT SUBROTO",
-      area: "Sumatera Utara",
-      totalAssetHandled: 2,
-    },
-    {
-      id: "8",
-      nip: "NIP-008",
-      name: "Hendra Wijaya",
-      department: "Pengiriman",
-      dealerName: "BINJAI",
-      area: "Sumatera Utara",
-      totalAssetHandled: 1,
-    },
-    {
-      id: "9",
-      nip: "NIP-009",
-      name: "Indra Permana",
-      department: "Operasional",
-      dealerName: "KOTA PINANG",
-      area: "Sumatera Utara",
-      totalAssetHandled: 2,
-    },
-    {
-      id: "10",
-      nip: "NIP-010",
-      name: "Joko Susilo",
-      department: "Logistik",
-      dealerName: "RANTAU PRAPAT",
-      area: "Sumatera Utara",
-      totalAssetHandled: 1,
-    },
-    {
-      id: "11",
-      nip: "NIP-011",
-      name: "Kartika Sari",
-      department: "Pengiriman",
-      dealerName: "TAMORA",
-      area: "Sumatera Utara",
-      totalAssetHandled: 2,
-    },
-    {
-      id: "12",
-      nip: "NIP-012",
-      name: "Lina Rohmawati",
-      department: "Operasional",
-      dealerName: "PERBAUNGAN",
-      area: "Sumatera Utara",
-      totalAssetHandled: 1,
-    },
-    {
-      id: "13",
-      nip: "NIP-013",
-      name: "Muhammad Fadli",
-      department: "Logistik",
-      dealerName: "SIANTAR",
-      area: "Sumatera Utara",
-      totalAssetHandled: 2,
-    },
-    {
-      id: "14",
-      nip: "NIP-014",
-      name: "Nurul Hidayah",
-      department: "Pengiriman",
-      dealerName: "KISARAN",
-      area: "Sumatera Utara",
-      totalAssetHandled: 1,
-    },
-    {
-      id: "15",
-      nip: "NIP-015",
-      name: "Olivia Puteri",
-      department: "Operasional",
-      dealerName: "AEK KANOPAN",
-      area: "Sumatera Utara",
-      totalAssetHandled: 2,
-    },
-  ];
-};
+import { DriversApi } from "@/lib/api/drivers";
 
 const DriversPage = () => {
+  const searchParams = useSearchParams();
+  const { session } = useAuth();
+
+  const queryParams = Object.fromEntries(searchParams.entries());
   return (
     <DataTableView
       columns={driverColumns}
       errorTitle="Failed to load Drivers"
-      queryFn={() => mockDrivers()}
-      queryKey={["drivers"]}
+      extraActions={<AddDriverDialog />}
+      manualPagination
+      mapData={(data) => data?.drivers ?? []}
+      queryFn={() => DriversApi.getDrivers(queryParams)}
+      queryKey={["drivers", session?.userId, queryParams]}
+      total={(data) => data?.total}
     />
   );
 };

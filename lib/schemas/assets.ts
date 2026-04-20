@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Used for form validation only (no transform)
-export const createAssetSchema = z.object({
+export const createAssetInput = z.object({
   modelName: z.string().min(1, "Model is required"),
   plateCode: z.string().min(1, "Code is required"),
   plateNumber: z
@@ -25,4 +25,11 @@ export const createAssetSchema = z.object({
     .min(1, "Dealer is Required"),
 });
 
-export type CreateAssetInput = z.infer<typeof createAssetSchema>;
+export const createAssetSchema = createAssetInput
+  .omit({ plateCode: true, plateNumber: true, plateSeries: true })
+  .extend({
+    licensePlate: z.string().min(1, "License plate is required"),
+  });
+
+export type CreateAssetInput = z.infer<typeof createAssetInput>;
+export type CreateAssetSchema = z.infer<typeof createAssetSchema>;
